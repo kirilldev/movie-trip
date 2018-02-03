@@ -1,0 +1,9 @@
+<div class="Tab__nav">
+    <div ng-repeat="item in $ctrl.nav" class="Tab__nav-item"
+         ng-click="$ctrl.changeTab(item)"
+         data-ng-class="{'active': $ctrl.active === item}">
+        <img class="Tab__nav-img" ng-src="{{::item.img}}">
+        {{::item.title}}
+    </div>
+</div>
+<ng-transclude></ng-transclude>

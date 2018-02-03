@@ -1,0 +1,29 @@
+<div class="small-indent" style="color: grey">
+    <div ng-if="!$ctrl.isFilterEnabled">
+        No applied filters yet
+    </div>
+
+    <div style="margin-bottom: 10px"
+         ng-repeat="key in $ctrl.keys"
+         ng-if="$ctrl.filterData[key].values.length">
+        <button class="RemoveBtn" ng-click="$ctrl.onRemove(key)"></button>
+        <a class="ClickableText force-single-line">
+            {{::$ctrl.filterData[key].label}}
+        </a>
+        <div class="small-indent force-single-line"
+             ng-repeat="value in $ctrl.filterData[key].values">
+            <button class="RemoveBtn"
+                    ng-click="$ctrl.onRemove(key, value)">
+            </button>
+            <span title="{{::value}}">{{::value}}</span>
+        </div>
+    </div>
+</div>
+
+<!--<button>x</button> <a style="text-decoration: underline">By Production Year</a><br/>-->
+
+<!--<button>x</button> <a style="text-decoration: underline">By Production Decade</a><br/>-->
+
+<!--<button>x</button> <a style="text-decoration: underline">By Production Company</a><br/>-->
+
+<!--<button>x</button> <a style="text-decoration: underline">By Production Company</a><br/>-->

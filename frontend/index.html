@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html data-ng-app="movieTripApp"
+      data-ng-strict-di="">
+<head>
+    <meta charset="utf-8">
+    <title>Heatmaps</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+    <link href="/assets/bundle.css" rel="stylesheet">
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'PT Sans', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <root-layout></root-layout>
+    <script>
+        window.googleMapsAPILoader = {
+            callbacks: [],
+            listen: function (cb) {
+                if (window.google && window.google.maps && cb) {
+                    cb(window.google.maps);
+                } else if (cb) {
+                    this.callbacks.push(cb);
+                } else {
+                    throw new Error('Did you forgot to pass a cb?');
+                }
+            },
+            notify: function () {
+                this.callbacks.forEach(function (cb) {
+                    cb(window.google.maps);
+                });
+                this.callbacks = []; //we don't need it anymore;
+            }
+        };
+    </script>
+<script defer src="/assets/angular.js"></script>
+<script defer src="/assets/bundle.js"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-IzkYT6fz5Ynbz4htQKKpJmQ3fHcNt7k&libraries=visualization&callback=googleMapsAPILoader.notify">
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+.Tab__nav {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.Tab__nav-item {
+    border-bottom: 1px solid grey;
+    text-align: center;
+    background-color: #383838;
+    width: 50%;
+    padding: 8px 2px;
+    color: white;
+    cursor: pointer;
+}
+
+.Tab__nav-item.active {
+    background-color: black;
+    cursor: default;
+    font-weight: bold;
+}
+
+.Tab__nav-img {
+    width: 20px;
+    filter: invert(1);
+    position: relative;
+    top: 4px;
+}

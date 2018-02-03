@@ -1,0 +1,14 @@
+<div class="small-indent">
+    <select class="Select"
+            data-ng-change="$ctrl.onSelectedFilter($ctrl.selectedFilter)"
+            data-ng-model="$ctrl.selectedFilter">
+        <option style="color: #999;" value="">Select filter type</option>
+        <option ng-repeat="type in $ctrl.filterTypes"
+                value="{{::type[0]}}">
+            {{::type[1]}}
+        </option>
+    </select>
+    <br/>
+    <select style="width: 100%; padding: 10px; margin-top: 10px; border-radius: 5px;"></select><br/>
+    <button class="Btn">Apply this filter</button>
+</div>

@@ -1,0 +1,25 @@
+.Select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.ClickableText {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.LighterH4 {
+    margin: 14px 0 0 0;
+    font-weight: lighter;
+}
+
+.small-indent {
+    padding: 10px;
+}
+
+.force-single-line {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
