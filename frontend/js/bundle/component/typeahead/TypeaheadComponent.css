@@ -1,0 +1,28 @@
+.Typeahead {
+    position: relative;
+}
+
+.Typeahead__results {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    background-color: white;
+    color: black;
+}
+
+.Typeahead__count-hint {
+    border-top: 1px solid #5B5B5C;
+    color: #5B5B5C;
+    padding: 5px 10px;
+    background-color: #d2d2d4;
+}
+
+.Typeahead__results-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.Typeahead__results-item:hover {
+    background-color: #1D94B0;
+    color: white;
+}

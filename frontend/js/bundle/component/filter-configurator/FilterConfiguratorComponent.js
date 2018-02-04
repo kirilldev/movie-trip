@@ -7,14 +7,34 @@ module.exports = {
     transclude: true,
     bindings: {
         filterTypes: '<',
+        onApplyFilter: '='
     },
     controller: function () {
         'ngInject';
 
-        this.selectedFilter = null;
+        const self = this;
 
-        this.onSelectedFilter = function (selectedFilter) {
-            console.log(selectedFilter)
-        }
+        self.selectedFilter = {
+            type: null,
+            value: null,
+        };
+
+        self.datasource = ['usa', 'smth else', 'sdass', 'xxxx', 'zzz', 'rxtra'];
+
+        self.onSelectedFilter = function (selectedFilter) {
+            // TODO: change value selection view;
+        };
+
+        self.filterValueChanged = function (value) {
+            self.selectedFilter.value = value;
+        };
+
+        self.onApplyBtnClicked = function () {
+            self.onApplyFilter(self.selectedFilter.type, self.selectedFilter.value);
+            self.selectedFilter = {
+                type: null,
+                value: null,
+            };
+        };
     }
 };

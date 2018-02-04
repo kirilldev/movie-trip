@@ -30,4 +30,11 @@
   &:hover {
     background-color: #6cd0e1;
   }
+
+  &[disabled] {
+    pointer-events: none;
+    background-color: transparent;
+    border: 1px solid grey;
+    color: grey;
+  }
 }

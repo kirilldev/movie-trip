@@ -32,7 +32,19 @@ module.exports = {
 
         self.filterData = createEmptyFilterData(self.filterTypes);
 
-        self.selectedPlaces = ['Facebook HQ', 'Whatever Mocked Place With some really long name'];
+        self.selectedPlaces = [];
+
+        self.travelTime = 0;
+        self.travelDistance = 0;
+
+        self.removeSelectedPlace = function (place) {
+            self.selectedPlaces = self.selectedPlaces.filter(p => p !== place);
+        };
+
+        self.addFilterValue = function (key, value) {
+            self.filterData[key].values.push(value);
+            self.filterData = Object.assign({}, self.filterData);
+        };
 
         self.removeFilterValue = function (key, value) {
             if (value) {

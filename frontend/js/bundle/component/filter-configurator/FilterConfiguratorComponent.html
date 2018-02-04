@@ -1,14 +1,32 @@
 <div class="small-indent">
     <select class="Select"
-            data-ng-change="$ctrl.onSelectedFilter($ctrl.selectedFilter)"
-            data-ng-model="$ctrl.selectedFilter">
+            data-ng-change="$ctrl.onSelectedFilter($ctrl.selectedFilter.type)"
+            data-ng-model="$ctrl.selectedFilter.type">
         <option style="color: #999;" value="">Select filter type</option>
-        <option ng-repeat="type in $ctrl.filterTypes"
+        <option ng-repeat="type in $ctrl.filterTypes track by $index"
                 value="{{::type[0]}}">
             {{::type[1]}}
         </option>
     </select>
     <br/>
-    <select style="width: 100%; padding: 10px; margin-top: 10px; border-radius: 5px;"></select><br/>
-    <button class="Btn">Apply this filter</button>
+    <div ng-if="!$ctrl.selectedFilter.type"
+         style="min-height: 88px; padding: 10px;
+         border-radius: 5px;
+         margin-top: 10px; text-align: center; color: #81c976;
+    border: 1px solid;">
+        <span style="display: inline-block">You can use a filter to narrow</span>
+        <span style="display: inline-block">down amount of places on a map</span>
+    </div>
+    <div ng-if="$ctrl.selectedFilter.type">
+        <typeahead limit-list="5"
+                   force-list-value="true"
+                   on-updated="$ctrl.filterValueChanged"
+                   datasource="$ctrl.datasource">
+        </typeahead>
+        <button class="Btn"
+                ng-click="$ctrl.onApplyBtnClicked()"
+                ng-disabled="!$ctrl.selectedFilter.type ||
+                !$ctrl.selectedFilter.value">Apply this filter</button>
+    </div>
+
 </div>

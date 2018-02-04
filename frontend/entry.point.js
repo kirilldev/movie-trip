@@ -15,6 +15,7 @@ movieTripApp.config(require('./js/bundle/AppConfig.js'));
 movieTripApp.component('filterState', require('./js/bundle/component/filter-state/FilterStateComponent'));
 movieTripApp.component('filterConfigurator', require('./js/bundle/component/filter-configurator/FilterConfiguratorComponent'));
 movieTripApp.component('tab', require('./js/bundle/component/tab/TabComponent'));
+movieTripApp.component('typeahead', require('./js/bundle/component/typeahead/TypeaheadComponent'));
 movieTripApp.component('rootLayout', require('./js/bundle/component/root-layout/RootComponent'));
 
 //Run

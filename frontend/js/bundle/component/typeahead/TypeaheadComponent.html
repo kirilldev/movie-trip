@@ -1,0 +1,21 @@
+<div class="Typeahead">
+    <input placeholder="Enter filter value.." class="Input"
+           ng-model="$ctrl.inputValue"
+           ng-change="$ctrl.onInputChanged()"
+           ng-focus="$ctrl.hasFocus=true"
+           ng-blur="$ctrl.onBlur()"
+    />
+    <div style="position: relative">
+        <div class="Typeahead__results"
+             ng-if="$ctrl.hasFocus">
+            <div class="Typeahead__results-item"
+                 ng-repeat="value in $ctrl.filterdValues | limitTo:$ctrl.limitList"
+                 ng-mousedown="$ctrl.selectValue(value)">{{::value}}
+            </div>
+            <div class="Typeahead__count-hint"
+                 ng-if="$ctrl.filterdValues.length > $ctrl.limitList">
+                And {{($ctrl.filterdValues.length - $ctrl.limitList)}} more..
+            </div>
+        </div>
+    </div>
+</div>

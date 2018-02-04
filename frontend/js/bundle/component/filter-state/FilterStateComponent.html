@@ -6,12 +6,14 @@
     <div style="margin-bottom: 10px"
          ng-repeat="key in $ctrl.keys"
          ng-if="$ctrl.filterData[key].values.length">
-        <button class="RemoveBtn" ng-click="$ctrl.onRemove(key)"></button>
+        <button class="RemoveBtn"
+                ng-click="$ctrl.onRemove(key)">
+        </button>
         <a class="ClickableText force-single-line">
             {{::$ctrl.filterData[key].label}}
         </a>
         <div class="small-indent force-single-line"
-             ng-repeat="value in $ctrl.filterData[key].values">
+             ng-repeat="value in $ctrl.filterData[key].values track by $index">
             <button class="RemoveBtn"
                     ng-click="$ctrl.onRemove(key, value)">
             </button>
