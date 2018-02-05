@@ -1,18 +1,19 @@
-<div class="small-indent" style="color: grey">
-    <div ng-if="!$ctrl.isFilterEnabled">
+<div class="u-small-indent">
+    <div ng-if="!$ctrl.isFilterEnabled"
+         class="GreyText">
         No applied filters yet
     </div>
 
-    <div style="margin-bottom: 10px"
+    <div class="u-small-margin-bottom"
          ng-repeat="key in $ctrl.keys"
          ng-if="$ctrl.filterData[key].values.length">
         <button class="RemoveBtn"
                 ng-click="$ctrl.onRemove(key)">
         </button>
-        <a class="ClickableText force-single-line">
+        <a class="ClickableText u-force-single-line">
             {{::$ctrl.filterData[key].label}}
         </a>
-        <div class="small-indent force-single-line"
+        <div class="u-small-indent u-force-single-line"
              ng-repeat="value in $ctrl.filterData[key].values track by $index">
             <button class="RemoveBtn"
                     ng-click="$ctrl.onRemove(key, value)">
@@ -21,11 +22,3 @@
         </div>
     </div>
 </div>
-
-<!--<button>x</button> <a style="text-decoration: underline">By Production Year</a><br/>-->
-
-<!--<button>x</button> <a style="text-decoration: underline">By Production Decade</a><br/>-->
-
-<!--<button>x</button> <a style="text-decoration: underline">By Production Company</a><br/>-->
-
-<!--<button>x</button> <a style="text-decoration: underline">By Production Company</a><br/>-->

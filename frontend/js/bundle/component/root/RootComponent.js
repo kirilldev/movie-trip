@@ -1,14 +1,14 @@
 const template = require('!raw-loader!./RootComponent.html');
 const tripIcon = require('../../../../img/icon-trip.png');
 const filterIcon = require('../../../../img/icon-filter.png');
-const apiFields = require('../../../../../props').API_FIELDS;
+const apiFields = require('../../../../../common/props').API_FIELDS;
 
-require('./RootComponent.css');
+require('./RootComponent.scss');
 
 module.exports = {
     template: template,
     bindings: {},
-    controller: function (locationsService, mapModel, $timeout) {
+    controller: function (locationsService, mapModel, $scope) {
         'ngInject';
 
         const self = this;
@@ -47,15 +47,9 @@ module.exports = {
 
         self.addFilterValue = function (key, value) {
             self.filterData[key].values.push(value);
+
             self.filterData = Object.assign({}, self.filterData);
-
-            locationsService.getRelations().then(relations => {
-                const [isAllVisible, visibleNames] = getVisibleNames(self.filterData, relations);
-                map.updateMarkersVisibility(m => isAllVisible || visibleNames[m.labelContent]);
-
-                //TODO: It would be nice if camera zooms out to fit all points instead of reset
-                map.resetCamera();
-            });
+            locationsService.getRelations().then(updateMap);
         };
 
         self.removeFilterValue = function (key, value) {
@@ -66,14 +60,17 @@ module.exports = {
                 self.filterData[key].values = [];
             }
 
-            locationsService.getRelations().then(relations => {
-                const [isAllVisible, visibleNames] = getVisibleNames(self.filterData, relations);
-                map.updateMarkersVisibility(m => isAllVisible || visibleNames[m.labelContent]);
-
-                //TODO: It would be nice if camera zooms out to fit all points instead of reset
-                map.resetCamera();
-            });
+            self.filterData = Object.assign({}, self.filterData);
+            locationsService.getRelations().then(updateMap);
         };
+
+        function updateMap(relations) {
+            const [isAllVisible, visibleNames] = getVisibleNames(self.filterData, relations);
+            map.updateMarkersVisibility(m => isAllVisible || visibleNames[m.labelContent]);
+
+            //TODO: It would be nice if camera zooms out to fit all points instead of reset
+            map.resetCamera();
+        }
 
         function createEmptyFilterData(filterTypes) {
             const filterData = {};
@@ -98,7 +95,8 @@ module.exports = {
                         lng: marker.position.lng(),
                         name: marker.labelContent
                     });
-                    //$timeout(_ => _)
+
+                    $scope.$apply();
                 }
             });
 

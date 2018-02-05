@@ -1,6 +1,6 @@
 const template = require('!raw-loader!./TypeaheadComponent.html');
 
-require('./TypeaheadComponent.css');
+require('./TypeaheadComponent.scss');
 
 // TODO: improve UX, highlight match in a list.
 // TODO: add possibility to chose first entry in a list with a tab key.
@@ -34,7 +34,8 @@ module.exports = {
         // TODO: optimize, for cases when it is enough to search in filterdValues array
         self.onInputChanged = () => {
             const lowerCaseInput = self.inputValue.toLowerCase().trim();
-            self.filterdValues = self.datasource.filter(value => value.toLowerCase().includes(lowerCaseInput));
+            const byInputText = v => v.toLowerCase().includes(lowerCaseInput);
+            self.filterdValues = self.datasource.filter(byInputText);
 
             if (self.filterdValues.length === 1
                 && self.filterdValues[0] === self.inputValue) {

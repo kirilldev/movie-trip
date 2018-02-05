@@ -1,0 +1,82 @@
+@value var-border-radius from './Variables.scss';
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  font-family: 'PT Sans', sans-serif;
+}
+
+.MapMarkerLabel {
+  background-color: white;
+  max-width: 80px;
+  padding: 2px;
+  border-radius: 3px;
+  border: 1px solid;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 8px;
+}
+
+.Select {
+  width: 100%;
+  padding: 10px;
+  border-radius: var-border-radius;
+  border: 0;
+
+  &__option {
+    color: black;
+  }
+}
+
+.Select.empty,
+.Select__placeholder {
+  color: #999;
+}
+
+.Input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: var-border-radius;
+  border: 0;
+}
+
+.ClickableText {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.LighterH4 {
+  margin: 14px 0 0 0;
+  font-weight: lighter;
+}
+
+.TabBody {
+  color: white;
+  background-color: black
+}
+
+.UsefulInfo {
+  min-height: 88px;
+  padding: 10px;
+  border-radius: var-border-radius;
+  margin-top: 10px;
+  text-align: center;
+  color: #81c976;
+  border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.GreyText {
+  color: grey;
+}

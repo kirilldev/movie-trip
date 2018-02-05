@@ -3,7 +3,8 @@ const movieTripApp = angular.module('movieTripApp', []);
 
 require('./index.html');
 require('normalize.css');
-require('./css/Core.css');
+require('./css/Core.scss');
+require('./css/Utility.scss');
 require('./css/Buttons.scss');
 
 //Config
@@ -18,7 +19,7 @@ movieTripApp.component('filterState', require('./js/bundle/component/filter-stat
 movieTripApp.component('filterConfigurator', require('./js/bundle/component/filter-configurator/FilterConfiguratorComponent'));
 movieTripApp.component('tab', require('./js/bundle/component/tab/TabComponent'));
 movieTripApp.component('typeahead', require('./js/bundle/component/typeahead/TypeaheadComponent'));
-movieTripApp.component('rootLayout', require('./js/bundle/component/root-layout/RootComponent'));
+movieTripApp.component('root', require('./js/bundle/component/root/RootComponent'));
 
 //Services
 movieTripApp.service('locationsService', require('./js/bundle/service/LocationsService'));

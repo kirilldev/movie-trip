@@ -1,70 +1,48 @@
-<style>
-    #map {
-        height: 100%;
-        width: 100%;
-    }
-
-    #menu {
-        width: 50%;
-        background-color: black;
-        min-width: 250px;
-    }
-
-    #main {
-        display: flex;
-        height: 100vh;
-        width: 100%;
-    }
-
-    @media (max-width: 500px) {
-        #main {
-            flex-direction: column-reverse;
-        }
-
-        #menu {
-            width: 100%;
-            min-height: 50vh;
-        }
-    }
-</style>
 <div id="main">
     <div id="menu">
         <tab nav="$ctrl.tabNavConfig">
-            <div data-tab-id="my-trip" class="small-indent" style="color: white; background-color: black">
+            <div class="TabBody u-small-indent" data-tab-id="my-trip">
                 <h4 class="LighterH4">Preferred mode:</h4>
                 <hr>
-                <div class="small-indent">
+                <div class="u-small-indent">
                     <select title="Select a travel mode" class="Select">
                         <option>Driving</option>
                     </select>
                 </div>
                 <h4 class="LighterH4">Trip information:</h4>
                 <hr>
-                <div class="small-indent">
+                <div class="u-small-indent">
                     Time: {{::$ctrl.travelTime}} hour(s)
                 </div>
-                <div class="small-indent">
+                <div class="u-small-indent">
                     Distance: {{::$ctrl.travelDistance}} km
                 </div>
                 <h4 class="LighterH4">Selected places:</h4>
                 <hr>
-                <div class="small-indent">
-                    <div style="margin-bottom: 10px"
-                         class="force-single-line"
+                <div class="u-small-indent">
+                    <div ng-if="!$ctrl.selectedPlaces.length"
+                         class="GreyText">
+                        No selected places yet
+                    </div>
+                    <div class="u-force-single-line u-small-margin-bottom"
                          ng-repeat="place in $ctrl.selectedPlaces track by $index">
                         <button class="RemoveBtn" ng-click="$ctrl.removeSelectedPlace(place)"></button>
                         <a class="ClickableText">{{::place.name}}</a>
                     </div>
                 </div>
             </div>
-            <div class="small-indent" style="color: white; background-color: black" data-tab-id="filters">
-                <h4 class="LighterH4">Add a new filter:</h4>
+            <div class="TabBody u-small-indent" data-tab-id="filters">
+                <h4 class="LighterH4">
+                    Add a new filter:
+                </h4>
                 <hr/>
                 <filter-configurator
                         on-apply-filter="$ctrl.addFilterValue"
                         filter-types="$ctrl.filterTypes">
                 </filter-configurator>
-                <h4 class="LighterH4">All applied filters:</h4>
+                <h4 class="LighterH4">
+                    All applied filters:
+                </h4>
                 <hr/>
                 <filter-state
                         on-remove="$ctrl.removeFilterValue"
@@ -72,14 +50,6 @@
                 </filter-state>
             </div>
         </tab>
-
-        <!--<div style="color: white">-->
-        <!--<input placeholder="Search Start Location"-->
-        <!--style="padding: 10px 6px; border: 1px solid grey; border-radius: 5px; width: 100%"/>-->
-        <!--var input = document.getElementById('pac-input');-->
-        <!--var searchBox = new google.maps.places.SearchBox(input);-->
-        <!--</div>-->
-
     </div>
     <div id="map"></div>
 </div>

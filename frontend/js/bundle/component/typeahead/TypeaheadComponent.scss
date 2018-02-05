@@ -1,28 +1,32 @@
-.Typeahead {
-    position: relative;
-}
+@value var-color-action from '../../../../css/Variables.scss';
 
-.Typeahead__results {
+.Typeahead {
+  &__results-wrapper {
+    position: relative;
+  }
+
+  &__results {
     position: absolute;
     width: 100%;
     top: 0;
     background-color: white;
     color: black;
-}
+  }
 
-.Typeahead__count-hint {
+  &__count-hint {
     border-top: 1px solid #5B5B5C;
     color: #5B5B5C;
     padding: 5px 10px;
     background-color: #d2d2d4;
-}
+  }
 
-.Typeahead__results-item {
+  &__results-item {
     padding: 10px;
     cursor: pointer;
-}
+  }
 
-.Typeahead__results-item:hover {
-    background-color: #1D94B0;
+  &__results-item:hover {
+    background-color: var-color-action;
     color: white;
+  }
 }

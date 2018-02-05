@@ -1,14 +1,22 @@
-const clusterImgUrl = 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m';
-
+//TODO: find a way to import in a variable instead of window
 require('js-marker-clusterer'); // window.MarkerClusterer
+
 const MarkerWithLabel = require('markerwithlabel');
 
+const markerClusterOptions = {
+    //TODO: host own pictures
+    imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+};
+
+//removes all places from a google map
 const disablePoiStyle = [
     {
         featureType: 'poi',
         elementType: 'labels',
         stylers: [
-            {visibility: 'off'}
+            {
+                visibility: 'off'
+            }
         ]
     }
 ];
@@ -54,7 +62,7 @@ MapModel.prototype.setMarkers = function (points) {
             draggable: false,
             map: map._map,
             labelContent: name,
-            labelAnchor: new this._gmapAPI.Point(30, 0),
+            labelAnchor: new this._gmapAPI.Point(24, 0),
             labelClass: 'MapMarkerLabel',
         });
 
@@ -67,17 +75,10 @@ MapModel.prototype.setMarkers = function (points) {
         });
     });
 
-    this._markerCluster = new window.MarkerClusterer(this._map, markers, {
-        imagePath: clusterImgUrl
-    });
+    this._markerCluster = new window.MarkerClusterer(this._map, markers, markerClusterOptions);
 
     this.markers = markers;
 };
-
-// MapModel.prototype.clearMarkers = function () {
-//     this._markerCluster.clearMarkers();
-//     console.log(this._markerCluster);
-// };
 
 MapModel.prototype.updateMarkersVisibility = function (isVisible) {
     this._markerCluster.clearMarkers();
@@ -87,5 +88,4 @@ MapModel.prototype.updateMarkersVisibility = function (isVisible) {
     this._markerCluster.addMarkers(visibleMarkers);
 };
 
-//clearMarkers()
 module.exports = MapModel;

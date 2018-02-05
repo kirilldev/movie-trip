@@ -7,10 +7,7 @@ const precss = require('precss');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-// const CompressionPlugin = require("compression-webpack-plugin");
 // const WebpackOnBuildPlugin = require('on-build-webpack');
-// const ConcatPlugin = require('webpack-concat-plugin');
-//
 // const precss = require('precss');
 //
 const PROJECT_PATH = path.resolve(__dirname, '../');
@@ -117,7 +114,7 @@ const rules = [
                 {
                     loader: "postcss-loader",
                     options: {
-                        plugins: () => [precss]
+                        plugins: () => [require('postcss-icss-values'), precss]
                     }
                 }
             ]

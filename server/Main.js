@@ -51,7 +51,7 @@ app.get('/api/relations/:locationName?', (req, res) => {
         }
 
         const [headerRow, ...rows] = parse(contents);
-        const props = require('../props');
+        const props = require('../common/props');
         const data = rows.map(row => {
             return row.slice(0, 8)
                 .concat([row.slice(8).filter(r => r.trim())])
@@ -62,15 +62,15 @@ app.get('/api/relations/:locationName?', (req, res) => {
 });
 
 function mapLocations(rows) {
-    const apiFields = require('../props').API_FIELDS;
+    const apiFields = require('../common/props').API_FIELDS;
 
     const collumn = {
         [apiFields.title]: 0,
-        'releaseYear': 1,
-        'locations': 2,
-        'funFacts': 3,
-        'productionCompany': 4,
-        'distributor': 5,
+        // 'releaseYear': 1,
+        // 'locations': 2,
+        // 'funFacts': 3,
+        // 'productionCompany': 4,
+        // 'distributor': 5,
         [apiFields.director]: 6,
         [apiFields.writer]: 7,
         [apiFields.actors]: 8
@@ -120,7 +120,6 @@ function mapLocations(rows) {
 
     return response
 }
-
 
 // start server
 app.listen(PORT, IP, _ => logger.info(`App (PID ${process.pid}) listening on a port: ${PORT}!`));
