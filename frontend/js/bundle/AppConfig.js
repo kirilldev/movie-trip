@@ -1,6 +1,5 @@
 module.exports = function ($provide,
                            $logProvider,
-                           $httpProvider,
                            $locationProvider) {
     'ngInject';
 

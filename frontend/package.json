@@ -6,7 +6,7 @@
   "dependencies": {
     "angular": "^1.6.8",
     "angularjs-slider": "^6.4.3",
-    "googlemaps-v3-utility-library": "^1.0.1",
+    "js-marker-clusterer": "^1.0.0",
     "normalize.css": "^7.0.0"
   },
   "devDependencies": {

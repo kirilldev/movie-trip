@@ -1,69 +1,8 @@
-module.exports = function ($rootScope, $http) {
+module.exports = function ($rootScope, $http, locationsService) {
     'ngInject';
 
-    $rootScope.getBodyClasses = () => ({
-        'menu-unavailable': isMenuUnavailable(),
-        'menu-active': $rootScope.nav.menuActive,
-        'ie11': isIE11,
-    });
-
-    window.googleMapsAPILoader.listen(gmapAPI => {
-        const disablePoiStyle = [
-            {
-                featureType: "poi",
-                elementType: "labels",
-                stylers: [
-                    {visibility: "off"}
-                ]
-            }
-        ];
-
-        var sanFrancisco = new google.maps.LatLng(37.774546, -122.433523);
-
-        const map = new gmapAPI.Map(document.getElementById('map'), {
-            zoom: 13,
-            center: sanFrancisco,
-            mapTypeId: gmapAPI.MapTypeId.TERRAIN,
-            disableDefaultUI: true,
-            zoomControl: true,
-            streetViewControl: true,
-            styles: disablePoiStyle
-        });
-
-        $http.get('/api/heatmap').then(res => {
-            const points = res.data;
-            const markers = [];
-            Object.keys(points).forEach(name => {
-                if (!name || !points[name]) {
-                    return;
-                }
-
-                markers.push(new google.maps.Marker({
-                    position: points[name],
-                    map: map,
-                    title: name,
-                    animation:google.maps.Animation.DROP
-                }));
-            });
-
-            var markerCluster = new MarkerClusterer(map, markers,
-                {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-
-
-            // const heatmapPpoints = Object.values(points).filter(point => point).map(point => {
-            //     return new gmapAPI.LatLng(point.lat, point.lng);
-            // });
-            //
-            // const heatmap = new gmapAPI.visualization.HeatmapLayer({
-            //     data: heatmapPpoints,
-            //     maxIntensity: 6,
-            //     map: map
-            // });
-            //
-            // // heatmap.set('opacity', 1);
-            // heatmap.set('radius', 20);
-        });
-    })
+    //prefetch
+    locationsService.getRelations().catch(console.log);
 };
 
 
@@ -122,3 +61,18 @@ module.exports = function ($rootScope, $http) {
 //         }
 //     });
 // }
+
+
+
+// const heatmapPpoints = Object.values(points).filter(point => point).map(point => {
+//     return new gmapAPI.LatLng(point.lat, point.lng);
+// });
+//
+// const heatmap = new gmapAPI.visualization.HeatmapLayer({
+//     data: heatmapPpoints,
+//     maxIntensity: 6,
+//     map: map
+// });
+//
+// // heatmap.set('opacity', 1);
+// heatmap.set('radius', 20);

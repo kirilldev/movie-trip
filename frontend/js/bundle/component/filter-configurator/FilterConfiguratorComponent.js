@@ -9,7 +9,7 @@ module.exports = {
         filterTypes: '<',
         onApplyFilter: '='
     },
-    controller: function () {
+    controller: function (locationsService) {
         'ngInject';
 
         const self = this;
@@ -19,10 +19,14 @@ module.exports = {
             value: null,
         };
 
-        self.datasource = ['usa', 'smth else', 'sdass', 'xxxx', 'zzz', 'rxtra'];
+        self.datasource = [];
 
         self.onSelectedFilter = function (selectedFilter) {
-            // TODO: change value selection view;
+            self.selectedFilter.value = null;
+
+            locationsService.getRelations().then(relations => {
+                self.datasource = relations.getAllTypeValues(selectedFilter);
+            });
         };
 
         self.filterValueChanged = function (value) {
