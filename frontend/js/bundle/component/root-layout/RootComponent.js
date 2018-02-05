@@ -8,7 +8,7 @@ require('./RootComponent.css');
 module.exports = {
     template: template,
     bindings: {},
-    controller: function (locationsService, mapModel) {
+    controller: function (locationsService, mapModel, $timeout) {
         'ngInject';
 
         const self = this;
@@ -50,8 +50,8 @@ module.exports = {
             self.filterData = Object.assign({}, self.filterData);
 
             locationsService.getRelations().then(relations => {
-                const visibleNames = getVisibleNames(self.filterData, relations);
-                map.updateMarkersVisibility(m => visibleNames[m.title]);
+                const [isAllVisible, visibleNames] = getVisibleNames(self.filterData, relations);
+                map.updateMarkersVisibility(m => isAllVisible || visibleNames[m.labelContent]);
 
                 //TODO: It would be nice if camera zooms out to fit all points instead of reset
                 map.resetCamera();
@@ -65,6 +65,14 @@ module.exports = {
             } else {
                 self.filterData[key].values = [];
             }
+
+            locationsService.getRelations().then(relations => {
+                const [isAllVisible, visibleNames] = getVisibleNames(self.filterData, relations);
+                map.updateMarkersVisibility(m => isAllVisible || visibleNames[m.labelContent]);
+
+                //TODO: It would be nice if camera zooms out to fit all points instead of reset
+                map.resetCamera();
+            });
         };
 
         function createEmptyFilterData(filterTypes) {
@@ -81,7 +89,18 @@ module.exports = {
         }
 
         window.googleMapsAPILoader.listen(gmapAPI => {
-            map = new mapModel(gmapAPI, document.getElementById('map'), sanFranciscoLatLng);
+            map = new mapModel(gmapAPI, document.getElementById('map'), sanFranciscoLatLng, function (marker) {
+                const isConfirmed = confirm('Are you sure want to add "' + marker.labelContent + '" to your trip?');
+
+                if (isConfirmed) {
+                    self.selectedPlaces.push({
+                        lat: marker.position.lat(),
+                        lng: marker.position.lng(),
+                        name: marker.labelContent
+                    });
+                    //$timeout(_ => _)
+                }
+            });
 
             locationsService.getHeatMapData().then(points => {
                 locationPoints = points;
@@ -90,10 +109,26 @@ module.exports = {
         });
 
         function getVisibleNames(filterSetup, relations) {
-           // console.log(filterSetup, relations);
-            return {
-                '200 Block of Sansome Street (Financial District)': true
+            const filterKeys = getNotEmptyKeys(filterSetup);
+            const out = {};
+
+            if (!filterKeys.length) {
+                return [true];
             }
+
+            filterKeys.forEach(key => {
+                filterSetup[key].values.forEach(value => {
+                    const locationNames = relations.getRelatedLocations(key, value);
+                    locationNames.forEach(name => out[name] = true)
+                });
+            });
+
+            return [false, out];
+        }
+
+        function getNotEmptyKeys(filterSetup) {
+            return Object.keys(filterSetup)
+                .filter(key => (filterSetup[key].values || []).length);
         }
     }
 };

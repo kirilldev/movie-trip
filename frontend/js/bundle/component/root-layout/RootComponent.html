@@ -53,7 +53,7 @@
                          class="force-single-line"
                          ng-repeat="place in $ctrl.selectedPlaces track by $index">
                         <button class="RemoveBtn" ng-click="$ctrl.removeSelectedPlace(place)"></button>
-                        <a class="ClickableText">{{::place}}</a>
+                        <a class="ClickableText">{{::place.name}}</a>
                     </div>
                 </div>
             </div>

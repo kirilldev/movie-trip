@@ -2,6 +2,18 @@
     box-sizing: border-box;
 }
 
+.MapMarkerLabel {
+    background-color: white;
+    max-width: 80px;
+    padding: 2px;
+    border-radius: 3px;
+    border: 1px solid;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 8px
+}
+
 .Select {
     width: 100%;
     padding: 10px;

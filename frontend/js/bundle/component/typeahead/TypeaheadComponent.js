@@ -33,7 +33,8 @@ module.exports = {
 
         // TODO: optimize, for cases when it is enough to search in filterdValues array
         self.onInputChanged = () => {
-            self.filterdValues = self.datasource.filter(value => value.includes(self.inputValue));
+            const lowerCaseInput = self.inputValue.toLowerCase().trim();
+            self.filterdValues = self.datasource.filter(value => value.toLowerCase().includes(lowerCaseInput));
 
             if (self.filterdValues.length === 1
                 && self.filterdValues[0] === self.inputValue) {

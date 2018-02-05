@@ -1,6 +1,7 @@
 const clusterImgUrl = 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m';
 
 require('js-marker-clusterer'); // window.MarkerClusterer
+const MarkerWithLabel = require('markerwithlabel');
 
 const disablePoiStyle = [
     {
@@ -12,13 +13,15 @@ const disablePoiStyle = [
     }
 ];
 
-function MapModel(gmapAPI, element, center) {
+function MapModel(gmapAPI, element, center, onMarkerClicked) {
     this._gmapAPI = gmapAPI;
     this._markerCluster = null;
     this._initialView = {
         zoom: 13,
         center: center
     };
+
+    this.onMarkerClicked = onMarkerClicked;
 
     this._map = new gmapAPI.Map(element, {
         zoom: this._initialView.zoom,
@@ -46,16 +49,27 @@ MapModel.prototype.setMarkers = function (points) {
             return;
         }
 
-        markers.push(new this._gmapAPI.Marker({
+        const marker = new (MarkerWithLabel(this._gmapAPI))({
             position: points[name],
+            draggable: false,
             map: map._map,
-            title: name,
-            //animation: this._gmapAPI.Animation.DROP
-        }));
+            labelContent: name,
+            labelAnchor: new this._gmapAPI.Point(30, 0),
+            labelClass: 'MapMarkerLabel',
+        });
+
+        markers.push(marker);
+
+        const onMarkerClicked = this.onMarkerClicked;
+
+        this._gmapAPI.event.addListener(marker, "click", function () {
+            onMarkerClicked(this);
+        });
     });
 
     this._markerCluster = new window.MarkerClusterer(this._map, markers, {
-        imagePath: clusterImgUrl});
+        imagePath: clusterImgUrl
+    });
 
     this.markers = markers;
 };
