@@ -14,8 +14,9 @@ module.exports = {
         const self = this;
         const sanFranciscoLatLng = {lat: 37.774, lng: -122.433};
 
-        let map = null;
         let locationPoints = null;
+
+        self.map = null;
 
         self.tabNavConfig = [{
             active: true,
@@ -42,7 +43,7 @@ module.exports = {
         self.filterData = createEmptyFilterData(self.filterTypes);
 
         self.removeSelectedPlace = function (place) {
-            self.selectedPlaces = self.selectedPlaces.filter(p => p !== place);
+            self.map.deselectPlace(place);
         };
 
         self.addFilterValue = function (key, value) {
@@ -66,10 +67,10 @@ module.exports = {
 
         function updateMap(relations) {
             const [isAllVisible, visibleNames] = getVisibleNames(self.filterData, relations);
-            map.updateMarkersVisibility(m => isAllVisible || visibleNames[m.labelContent]);
+            self.map.updateMarkersVisibility(m => isAllVisible || visibleNames[m.labelContent]);
 
             //TODO: It would be nice if camera zooms out to fit all points instead of reset
-            map.resetCamera();
+            self.map.resetCamera();
         }
 
         function createEmptyFilterData(filterTypes) {
@@ -86,25 +87,34 @@ module.exports = {
         }
 
         window.googleMapsAPILoader.listen(gmapAPI => {
-            map = new mapModel(gmapAPI, document.getElementById('map'), sanFranciscoLatLng, function (marker) {
-                const isConfirmed = confirm('Are you sure want to add "' + marker.labelContent + '" to your trip?');
-
-                if (isConfirmed) {
-                    self.selectedPlaces.push({
-                        lat: marker.position.lat(),
-                        lng: marker.position.lng(),
-                        name: marker.labelContent
-                    });
-
-                    $scope.$apply();
-                }
-            });
+            self.map = new mapModel(gmapAPI,
+                document.getElementById('map'),
+                sanFranciscoLatLng,
+                handleMarkerClick);
 
             locationsService.getHeatMapData().then(points => {
                 locationPoints = points;
-                map.setMarkers(points);
+                self.map.setMarkers(points);
             });
         });
+
+        function handleMarkerClick(marker) {
+            const isSelected = self.map.isSelectedPlace(marker);
+            let questionTxt = '';
+
+            if (isSelected) {
+                questionTxt = 'Are you sure want to remove "'
+                    + marker.labelContent + '" from your trip?'
+            } else {
+                questionTxt = 'Are you sure want to add "'
+                    + marker.labelContent + '" to your trip?'
+            }
+
+            if (confirm(questionTxt)) {
+                self.map.togglePlaceSelection(marker);
+                $scope.$apply();
+            }
+        }
 
         function getVisibleNames(filterSetup, relations) {
             const filterKeys = getNotEmptyKeys(filterSetup);

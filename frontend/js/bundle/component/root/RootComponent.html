@@ -20,14 +20,14 @@
                 <h4 class="LighterH4">Selected places:</h4>
                 <hr>
                 <div class="u-small-indent">
-                    <div ng-if="!$ctrl.selectedPlaces.length"
+                    <div ng-if="!$ctrl.map.selectedPlaces.length"
                          class="GreyText">
                         No selected places yet
                     </div>
                     <div class="u-force-single-line u-small-margin-bottom"
-                         ng-repeat="place in $ctrl.selectedPlaces track by $index">
+                         ng-repeat="place in $ctrl.map.selectedPlaces track by $index">
                         <button class="RemoveBtn" ng-click="$ctrl.removeSelectedPlace(place)"></button>
-                        <a class="ClickableText">{{::place.name}}</a>
+                        <a class="ClickableText">{{::place.labelContent}}</a>
                     </div>
                 </div>
             </div>

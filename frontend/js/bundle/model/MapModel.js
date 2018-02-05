@@ -2,6 +2,8 @@
 require('js-marker-clusterer'); // window.MarkerClusterer
 
 const MarkerWithLabel = require('markerwithlabel');
+const markerDefaultImage = require('../../../img/marker-default.png');
+const markerSelectedImage = require('../../../img/marker-selected.png');
 
 const markerClusterOptions = {
     //TODO: host own pictures
@@ -21,6 +23,14 @@ const disablePoiStyle = [
     }
 ];
 
+/**
+ *
+ * @param gmapAPI
+ * @param element
+ * @param center
+ * @param onMarkerClicked
+ * @constructor
+ */
 function MapModel(gmapAPI, element, center, onMarkerClicked) {
     this._gmapAPI = gmapAPI;
     this._markerCluster = null;
@@ -42,6 +52,7 @@ function MapModel(gmapAPI, element, center, onMarkerClicked) {
     });
 
     this.markers = [];
+    this.selectedPlaces = [];
 }
 
 MapModel.prototype.resetCamera = function () {
@@ -57,14 +68,17 @@ MapModel.prototype.setMarkers = function (points) {
             return;
         }
 
-        const marker = new (MarkerWithLabel(this._gmapAPI))({
+        const markerParams = {
             position: points[name],
             draggable: false,
             map: map._map,
+            icon: createMarkerIcon(this._gmapAPI, false),
             labelContent: name,
             labelAnchor: new this._gmapAPI.Point(24, 0),
             labelClass: 'MapMarkerLabel',
-        });
+        };
+
+        const marker = new (MarkerWithLabel(this._gmapAPI))(markerParams);
 
         markers.push(marker);
 
@@ -87,5 +101,37 @@ MapModel.prototype.updateMarkersVisibility = function (isVisible) {
 
     this._markerCluster.addMarkers(visibleMarkers);
 };
+
+MapModel.prototype.isSelectedPlace = function (marker) {
+    return this.selectedPlaces.includes(marker);
+};
+
+MapModel.prototype.togglePlaceSelection = function (marker) {
+    if (this.isSelectedPlace(marker)) {
+        this.deselectPlace(marker);
+    } else {
+        this.selectPlace(marker);
+    }
+};
+
+MapModel.prototype.selectPlace = function (marker) {
+    marker.setIcon(createMarkerIcon(this._gmapAPI, true));
+    this.selectedPlaces.push(marker);
+};
+
+MapModel.prototype.deselectPlace = function (marker) {
+    marker.setIcon(createMarkerIcon(this._gmapAPI));
+    this.selectedPlaces = this.selectedPlaces.filter(p => p !== marker);
+};
+
+function createMarkerIcon(gmapAPI, isSelected) {
+    return new gmapAPI.MarkerImage(
+        isSelected ? markerSelectedImage : markerDefaultImage,
+        null, /* size is determined at runtime */
+        null, /* origin is 0,0 */
+        null, /* anchor is bottom center of the scaled image */
+        new gmapAPI.Size(25, 38)
+    );
+}
 
 module.exports = MapModel;
