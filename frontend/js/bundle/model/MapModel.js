@@ -33,6 +33,7 @@ const disablePoiStyle = [
  */
 function MapModel(gmapAPI, element, center, onMarkerClicked) {
     this._gmapAPI = gmapAPI;
+    this._directionsDisplay = null;
     this._markerCluster = null;
     this._initialView = {
         zoom: 13,
@@ -53,6 +54,10 @@ function MapModel(gmapAPI, element, center, onMarkerClicked) {
 
     this.markers = [];
     this.selectedPlaces = [];
+    this.trip = {
+        distance: 0,
+        time: 0
+    }
 }
 
 MapModel.prototype.resetCamera = function () {
@@ -123,6 +128,90 @@ MapModel.prototype.deselectPlace = function (marker) {
     marker.setIcon(createMarkerIcon(this._gmapAPI));
     this.selectedPlaces = this.selectedPlaces.filter(p => p !== marker);
 };
+
+
+MapModel.prototype.removeRouteFromMap = function (isClearRouteInfo) {
+    if (this._directionsDisplay !== null) {
+        this._directionsDisplay.setMap(null);
+    }
+
+    this._directionsDisplay = new this._gmapAPI.DirectionsRenderer({
+        suppressMarkers: true,
+        preserveViewport: true
+    });
+
+    this._directionsDisplay.setMap(this._map);
+
+    if (isClearRouteInfo) {
+        this.trip = {
+            distance: 0,
+            time: 0
+        };
+    }
+};
+
+// The maximum number of waypoints allowed when using the
+// Directions service in the Google Maps JavaScript API is 23, plus the origin and destination.
+// https://developers.google.com/maps/documentation/javascript/directions#GeocodedWaypoints
+MapModel.prototype.calculateAndDisplayRoute = function () {
+    const self = this;
+
+    this.removeRouteFromMap(true);
+
+    const waypoints = self.selectedPlaces.map(marker => {
+        return {
+            location: {
+                lat: marker.position.lat(),
+                lng: marker.position.lng()
+            }
+            //stopover: true
+        }
+    });
+
+    if (waypoints.length < 2) {
+        return Promise.resolve(self.trip);
+    }
+
+    return requestRouteData(this._gmapAPI, waypoints).then(data => {
+        self._directionsDisplay.setDirections(data);
+        self.trip = getRouteInfo(data.routes[0]);
+        return self.trip;
+    });
+};
+
+function requestRouteData(gmapAPI, waypoints) {
+    const routeParams = {
+        origin: waypoints[0].location,
+        destination: waypoints[waypoints.length - 1].location,
+        waypoints: waypoints,
+        optimizeWaypoints: true,
+        travelMode: 'DRIVING'
+    };
+
+    return new Promise(resolve => {
+        const responseHandler = (response, status) => {
+            if (status !== 'OK') {
+                throw new Error('Directions request failed due to ' + status);
+            }
+
+            resolve(response);
+        };
+
+        (new gmapAPI.DirectionsService()).route(routeParams, responseHandler);
+    });
+}
+
+function getRouteInfo(route) {
+    const routeSegments = route.legs.map(x => ({
+        distance: x.distance.value, //meters
+        time: x.duration.value //seconds
+    }));
+
+    return {
+        distance: routeSegments.reduce((total, segment) => total + segment.distance, 0),
+        time: routeSegments.reduce((total, segment) => total + segment.time, 0),
+    };
+}
 
 function createMarkerIcon(gmapAPI, isSelected) {
     return new gmapAPI.MarkerImage(

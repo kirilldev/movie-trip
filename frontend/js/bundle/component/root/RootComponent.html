@@ -12,10 +12,10 @@
                 <h4 class="LighterH4">Trip information:</h4>
                 <hr>
                 <div class="u-small-indent">
-                    Time: {{::$ctrl.travelTime}} hour(s)
+                    Time: {{$ctrl.map.trip.time / 3600 | number : 2}} hour(s)
                 </div>
                 <div class="u-small-indent">
-                    Distance: {{::$ctrl.travelDistance}} km
+                    Distance: {{$ctrl.map.trip.distance / 1000 | number : 2}} km
                 </div>
                 <h4 class="LighterH4">Selected places:</h4>
                 <hr>
@@ -38,6 +38,7 @@
                 <hr/>
                 <filter-configurator
                         on-apply-filter="$ctrl.addFilterValue"
+                        filter-data="$ctrl.filterData"
                         filter-types="$ctrl.filterTypes">
                 </filter-configurator>
                 <h4 class="LighterH4">

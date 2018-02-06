@@ -7,6 +7,7 @@ module.exports = {
     transclude: true,
     bindings: {
         filterTypes: '<',
+        filterData: '<',
         onApplyFilter: '='
     },
     controller: function (locationsService) {
@@ -22,10 +23,12 @@ module.exports = {
         self.datasource = [];
 
         self.onSelectedFilter = function (selectedFilter) {
+            const excludeValues = new Set(self.filterData[selectedFilter].values);
             self.selectedFilter.value = null;
 
             locationsService.getRelations().then(relations => {
-                self.datasource = relations.getAllTypeValues(selectedFilter);
+                self.datasource = relations.getAllTypeValues(selectedFilter)
+                    .filter(value => !excludeValues.has(value));
             });
         };
 

@@ -16,7 +16,12 @@ module.exports = {
 
         let locationPoints = null;
 
-        self.map = null;
+        self.map = {
+            trip: {
+                distance: 0,
+                time: 0
+            }
+        };
 
         self.tabNavConfig = [{
             active: true,
@@ -29,10 +34,6 @@ module.exports = {
             img: filterIcon
         }];
 
-        self.selectedPlaces = [];
-        self.travelTime = 0;
-        self.travelDistance = 0;
-
         self.filterTypes = [
             [apiFields.actors, 'By Starring Actor'],
             [apiFields.director, 'By Movie Director'],
@@ -44,6 +45,7 @@ module.exports = {
 
         self.removeSelectedPlace = function (place) {
             self.map.deselectPlace(place);
+            self.map.calculateAndDisplayRoute().then(trip => $scope.$apply());
         };
 
         self.addFilterValue = function (key, value) {
@@ -112,6 +114,7 @@ module.exports = {
 
             if (confirm(questionTxt)) {
                 self.map.togglePlaceSelection(marker);
+                self.map.calculateAndDisplayRoute().then(trip => $scope.$apply());
                 $scope.$apply();
             }
         }
