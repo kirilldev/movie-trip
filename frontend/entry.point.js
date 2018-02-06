@@ -13,6 +13,7 @@ movieTripApp.config(require('./js/bundle/AppConfig.js'));
 //Constants
 movieTripApp.constant('mapModel', require('./js/bundle/model/MapModel'));
 movieTripApp.constant('relationsModel', require('./js/bundle/model/Relations'));
+movieTripApp.constant('apiFields',require('../common/enum').API_FIELDS);
 
 //Components
 movieTripApp.component('filterState', require('./js/bundle/component/filter-state/FilterStateComponent'));

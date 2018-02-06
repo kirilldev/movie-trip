@@ -1,14 +1,13 @@
 const template = require('!raw-loader!./RootComponent.html');
 const tripIcon = require('../../../../img/icon-trip.png');
 const filterIcon = require('../../../../img/icon-filter.png');
-const apiFields = require('../../../../../common/props').API_FIELDS;
 
 require('./RootComponent.scss');
 
 module.exports = {
     template: template,
     bindings: {},
-    controller: function (locationsService, mapModel, $scope) {
+    controller: function (locationsService, mapModel, $scope, apiFields) {
         'ngInject';
 
         const self = this;

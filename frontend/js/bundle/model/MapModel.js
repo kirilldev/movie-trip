@@ -57,7 +57,7 @@ function MapModel(gmapAPI, element, center, onMarkerClicked) {
     this.trip = {
         distance: 0,
         time: 0
-    }
+    };
 }
 
 MapModel.prototype.resetCamera = function () {
@@ -76,7 +76,7 @@ MapModel.prototype.setMarkers = function (points) {
         const markerParams = {
             position: points[name],
             draggable: false,
-            map: map._map,
+            map: this._map,
             icon: createMarkerIcon(this._gmapAPI, false),
             labelContent: name,
             labelAnchor: new this._gmapAPI.Point(24, 0),
@@ -89,7 +89,7 @@ MapModel.prototype.setMarkers = function (points) {
 
         const onMarkerClicked = this.onMarkerClicked;
 
-        this._gmapAPI.event.addListener(marker, "click", function () {
+        this._gmapAPI.event.addListener(marker, 'click', function () {
             onMarkerClicked(this);
         });
     });
@@ -163,9 +163,9 @@ MapModel.prototype.calculateAndDisplayRoute = function () {
             location: {
                 lat: marker.position.lat(),
                 lng: marker.position.lng()
-            }
-            //stopover: true
-        }
+            },
+            stopover: true
+        };
     });
 
     if (waypoints.length < 2) {
