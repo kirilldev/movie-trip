@@ -1,4 +1,5 @@
 @value var-border-radius from './Variables.scss';
+@value var-screens-mobile from './Variables.scss';
 
 * {
   box-sizing: border-box;
@@ -51,7 +52,9 @@ html, body {
 
 .ClickableText {
   text-decoration: underline;
-  cursor: pointer;
+  /*TODO: Uncomment when implement planned features
+    like collapsing filters and selected location info
+  cursor: pointer;*/
 }
 
 .LighterH4 {
@@ -79,4 +82,11 @@ html, body {
 
 .GreyText {
   color: grey;
+}
+
+@media (max-width: var-screens-mobile) {
+  html, body {
+    max-height: none;
+    overflow: auto;
+  }
 }
