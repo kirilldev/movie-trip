@@ -12,6 +12,7 @@ const csv = require('csv');
 const parse = require('csv-parse/lib/sync');
 const app = express();
 const logger = log4js.getLogger('Main.js');
+const Place = require('./api/Place');
 const PORT = process.env.PORT || 8090;
 const IP = SERVER_ENV === 'dev' ? 'localhost' : '0.0.0.0';
 
@@ -40,9 +41,7 @@ app.get('/api/heatmap', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'db/Coordinates_in_San_Francisco.csv'))
 });
 
-app.get('/api/location/:name*', (req, res) => {
-    //TODO: return all data related to a location
-});
+app.get('/api/place/:name*', Place.getPlaceDataByName);
 
 app.get('/api/relations/:locationName?', (req, res) => {
     fs.readFile('./db/Film_Locations_in_San_Francisco.csv', 'utf8', function (err, contents) {
@@ -62,7 +61,7 @@ app.get('/api/relations/:locationName?', (req, res) => {
 });
 
 function mapLocations(rows) {
-    const apiFields = require('../common/props').API_FIELDS;
+    const apiFields = require('../common/enum.js').API_FIELDS;
 
     const collumn = {
         [apiFields.title]: 0,

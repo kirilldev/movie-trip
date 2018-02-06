@@ -44,7 +44,7 @@ module.exports = {
 
         self.removeSelectedPlace = function (place) {
             self.map.deselectPlace(place);
-            self.map.calculateAndDisplayRoute().then(trip => $scope.$apply());
+            self.map.calculateAndDisplayRoute().then(() => $scope.$apply());
         };
 
         self.addFilterValue = function (key, value) {
@@ -113,7 +113,7 @@ module.exports = {
 
             if (confirm(questionTxt)) {
                 self.map.togglePlaceSelection(marker);
-                self.map.calculateAndDisplayRoute().then(trip => $scope.$apply());
+                self.map.calculateAndDisplayRoute().then(() => $scope.$apply());
                 $scope.$apply();
             }
         }
@@ -129,7 +129,7 @@ module.exports = {
             filterKeys.forEach(key => {
                 filterSetup[key].values.forEach(value => {
                     const locationNames = relations.getRelatedLocations(key, value);
-                    locationNames.forEach(name => out[name] = true)
+                    locationNames.forEach(name => out[name] = true);
                 });
             });
 

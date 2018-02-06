@@ -30,7 +30,7 @@ module.exports = {
         function showHideTabs(tabs) {
             tabs.forEach(tab => {
                 if (this.active.tabId === tab.dataset.tabId) {
-                    tab.style.display = null
+                    tab.style.display = null;
                 } else {
                     tab.style.display = 'none';
                 }

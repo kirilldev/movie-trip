@@ -52,6 +52,6 @@ module.exports = {
             }
 
             self.onUpdated(self.inputValue);
-        }
+        };
     }
 };

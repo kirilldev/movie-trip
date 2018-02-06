@@ -3,7 +3,7 @@
  * https://developers.google.com/maps/documentation/javascript/geocoding
  */
 const GoogleMapsAPI = require('googlemaps');
-const GOOGLE_API_KEY = require('../../props.js').GOOGLE_API_KEY;
+const GOOGLE_API_KEY = require('../../common/props.js').GOOGLE_API_KEY;
 
 const publicConfig = {
     key: GOOGLE_API_KEY,
@@ -18,7 +18,7 @@ module.exports = {
     getCoordinatesByName: function (name, aria) {
         return new Promise(resolve => {
             const geocodeParams = {
-                address: name,
+                address: name + ' ' + aria, //force location
                 componentRestrictions: {
                     country: 'US',
                     administrativeArea: aria,
