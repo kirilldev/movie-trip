@@ -19,13 +19,22 @@ module.exports = {
         'ngInject';
 
         const self = this;
+        const byLexicalOrder = (a, b) => a > b ? 1 : -1;
 
         self.filterdValues = [];
         self.hasFocus = false;
         self.inputValue = '';
 
+        self.$onInit = function () {
+            self.datasource = self.datasource || [];
+            self.limitList = self.limitList || 5;
+            // TODO: I ignore that parameter at current moment.
+            // Component always considers it as a 'true'
+            self.forceListValue = self.forceListValue || false;
+        };
+
         self.$onChanges = function () {
-            self.datasource.sort((a, b) => a > b ? 1 : -1);
+            self.datasource.sort(byLexicalOrder);
             self.filterdValues = self.datasource;
         };
 

@@ -10,16 +10,25 @@
     "normalize.css": "^7.0.0"
   },
   "devDependencies": {
+    "angular-mocks": "^1.6.9",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-angularjs-annotate": "^0.8.2",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.24.1",
     "clean-webpack-plugin": "^0.1.18",
     "copy-webpack-plugin": "^4.3.1",
+    "cross-env": "^5.1.3",
     "css-loader": "^0.28.9",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",
     "html-loader": "^0.5.5",
+    "jasmine-core": "^3.0.0",
+    "karma": "^2.0.0",
+    "karma-babel-preprocessor": "^7.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^1.1.1",
+    "karma-spec-reporter": "0.0.32",
     "markerwithlabel": "^2.0.1",
     "postcss-icss-values": "^2.0.1",
     "postcss-loader": "^2.1.0",
@@ -29,8 +38,9 @@
     "webpack": "^3.10.0"
   },
   "scripts": {
-    "prod": "set NODE_ENV=prod && webpack",
-    "dev": "set NODE_ENV=dev && webpack"
+    "prod": "cross-env NODE_ENV=prod && webpack",
+    "dev": "cross-env NODE_ENV=dev && webpack",
+    "test": "node node_modules/karma/bin/karma start"
   },
   "author": "Kirill Reznikov",
   "license": "ISC"

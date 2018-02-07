@@ -49,8 +49,8 @@ app.get('/api/relations/:locationName?', (req, res) => {
             throw err;
         }
 
-        const [headerRow, ...rows] = parse(contents);
-        const props = require('../common/props');
+        const [/*headerRow*/, ...rows] = parse(contents);
+
         const data = rows.map(row => {
             return row.slice(0, 8)
                 .concat([row.slice(8).filter(r => r.trim())])
@@ -62,14 +62,13 @@ app.get('/api/relations/:locationName?', (req, res) => {
 
 function mapLocations(rows) {
     const apiFields = require('../common/enum.js').API_FIELDS;
-
     const collumn = {
         [apiFields.title]: 0,
-        // 'releaseYear': 1,
-        // 'locations': 2,
-        // 'funFacts': 3,
-        // 'productionCompany': 4,
-        // 'distributor': 5,
+        //releaseYear: 1,
+        [apiFields.locations]: 2,
+        //funFacts: 3,
+        //productionCompany: 4,
+        //distributor: 5,
         [apiFields.director]: 6,
         [apiFields.writer]: 7,
         [apiFields.actors]: 8
@@ -78,7 +77,7 @@ function mapLocations(rows) {
     const locationToId = {};
 
     const response = {
-        locations: [],
+        [apiFields.locations]: [],
         relations: {
             [apiFields.actors]: {},
             [apiFields.title]: {},

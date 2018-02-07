@@ -4,5 +4,6 @@ module.exports = {
         director: 'director',
         writer: 'writer',
         title: 'title',
+        locations: 'locations'
     }
 };

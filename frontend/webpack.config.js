@@ -24,14 +24,6 @@ const copyPluginPaths = [
     //     from: 'fonts/open-sans-condensed.woff.gz',
     //     to: 'assets/open-sans-condensed.woff.gz'
     // },
-    // {
-    //     from: 'img/*.png',
-    //     to: 'assets'
-    // },
-    // {
-    //     from: 'img/*.jpg',
-    //     to: 'assets'
-    // }
 ];
 
 const ENV_DATA = {
@@ -94,7 +86,7 @@ const rules = [
     },
     {
         test: /\.js$/,
-        exclude: /(node_modules|thirdparty)/,
+        exclude: /(node_modules|vendor)/,
         use: [
             {
                 loader: 'babel-loader',
@@ -131,11 +123,7 @@ const rules = [
         }]
     }
 ];
-//     {
-//         test: /partial([\\\/])[a-z-]+\.html$/,
-//         loader: 'ngtemplate-loader!html-loader'
-//     },
-// },
+
 // {
 //     test: /\.(woff|mp3)$/,
 //         use: [{
@@ -156,7 +144,11 @@ module.exports = {
     },
 
     resolve: {
-        extensions: ['.js']
+        extensions: ['.js'],
+        alias: {
+            img: path.resolve(__dirname, 'img'),
+            css: path.resolve(__dirname, 'css'),
+        }
     },
 
     devtool: NODE_ENV === 'dev' ? 'eval' : false,

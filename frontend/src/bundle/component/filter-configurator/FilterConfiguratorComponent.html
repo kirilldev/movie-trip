@@ -23,8 +23,7 @@
         </span>
     </div>
     <div ng-if="$ctrl.selectedFilter.type">
-        <typeahead limit-list="5"
-                   force-list-value="true"
+        <typeahead force-list-value="true"
                    on-updated="$ctrl.filterValueChanged"
                    datasource="$ctrl.datasource">
         </typeahead>

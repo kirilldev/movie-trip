@@ -1,6 +1,6 @@
 const template = require('!raw-loader!./RootComponent.html');
-const tripIcon = require('../../../../img/icon-trip.png');
-const filterIcon = require('../../../../img/icon-filter.png');
+const tripIcon = require('img/icon/icon-trip.png');
+const filterIcon = require('img/icon/icon-filter.png');
 
 require('./RootComponent.scss');
 
