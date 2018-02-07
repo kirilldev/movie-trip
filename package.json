@@ -1,0 +1,26 @@
+{
+  "name": "movie-trip",
+  "version": "1.0.0",
+  "description": "https://movie-trip.herokuapp.com/",
+  "main": "index.js",
+  "dependencies": {
+    "angucomplete-alt": "^3.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.17.0"
+  },
+  "scripts": {
+    "checks": "./node_modules/.bin/eslint **/*.js",
+    "postinstall": "cd frontend && npm install && cd.. & cd server && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kirilldev/movie-trip.git"
+  },
+  "author": "Kirill Reznikov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kirilldev/movie-trip/issues"
+  },
+  "homepage": "https://github.com/kirilldev/movie-trip#readme"
+}
