@@ -1,0 +1,8 @@
+{
+  "name": "common",
+  "version": "1.0.0",
+  "description": "contains common parts between other modules",
+  "main": "",
+  "author": "Kirill Reznikov",
+  "license": "ISC"
+}
