@@ -1,3 +1,6 @@
+/*eslint-env jasmine*/
+/*global angular:false, inject:false*/
+
 describe('TypeaheadComponent.js', function () {
     const testDatasource = ['Zero', 'One', 'Two', 'Three', 'Four',
         'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Onee'];
@@ -135,5 +138,22 @@ describe('TypeaheadComponent.js', function () {
 
         //Then
         expect(getDropdownValues(element)).toEqual(expectedDropdownValues);
+    });
+
+    it('must fill input when user clicks on item in dropdown list', function () {
+        //given
+        scope.datasource = testDatasource;
+        const expectedValue = 'Five';
+        const input = element.find('input');
+
+        //when
+        input.triggerHandler('focus');
+        const resultItemEl = element[0].querySelectorAll('.Typeahead__results-item');
+        const byExpectedValue = el => el.innerText.trim() === expectedValue;
+        const el = Array.from(resultItemEl).find(byExpectedValue);
+        angular.element(el).triggerHandler('mousedown');
+
+        //Then
+        expect(input.val()).toEqual(expectedValue);
     });
 });

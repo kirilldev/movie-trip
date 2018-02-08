@@ -5,7 +5,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100vh;
   max-height: 100vh;
   overflow: hidden;
@@ -35,11 +36,11 @@ html, body {
   &__option {
     color: black;
   }
-}
 
-.Select.empty,
-.Select__placeholder {
-  color: #999;
+  &.empty,
+  &__placeholder {
+    color: #999;
+  }
 }
 
 .Input {
@@ -85,7 +86,8 @@ html, body {
 }
 
 @media (max-width: var-screens-mobile) {
-  html, body {
+  html,
+  body {
     max-height: none;
     overflow: auto;
   }

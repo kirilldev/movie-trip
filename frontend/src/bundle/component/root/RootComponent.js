@@ -11,8 +11,6 @@ module.exports = {
         const self = this;
         const sanFranciscoLatLng = {lat: 37.774, lng: -122.433};
 
-        let locationPoints = null;
-
         self.map = {
             trip: {
                 distance: 0,
@@ -79,7 +77,7 @@ module.exports = {
                 filterData[type] = {
                     label: label,
                     values: []
-                }
+                };
             });
 
             return filterData;
@@ -91,7 +89,6 @@ module.exports = {
             handleMarkerClick);
 
         locationsService.getHeatMapData().then(points => {
-            locationPoints = points;
             self.map.setMarkers(points);
         });
 
@@ -101,10 +98,10 @@ module.exports = {
 
             if (isSelected) {
                 questionTxt = 'Are you sure want to remove "'
-                    + marker.labelContent + '" from your trip?'
+                    + marker.labelContent + '" from your trip?';
             } else {
                 questionTxt = 'Are you sure want to add "'
-                    + marker.labelContent + '" to your trip?'
+                    + marker.labelContent + '" to your trip?';
             }
 
             if (confirm(questionTxt)) {

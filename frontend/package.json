@@ -4,13 +4,16 @@
   "description": "client part",
   "main": "entry.point.js",
   "dependencies": {
+    "common": "file:../common",
     "angular": "^1.6.8",
     "angularjs-slider": "^6.4.3",
     "js-marker-clusterer": "^1.0.0",
     "normalize.css": "^7.0.0"
   },
   "devDependencies": {
+    "eslint-config-custom": "file:../eslint-config-custom",
     "angular-mocks": "^1.6.9",
+    "eslint": "^4.17.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-angularjs-annotate": "^0.8.2",
@@ -22,6 +25,7 @@
     "css-loader": "^0.28.9",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.6",
+    "flow-bin": "^0.65.0",
     "html-loader": "^0.5.5",
     "jasmine-core": "^3.0.0",
     "karma": "^2.0.0",
@@ -40,7 +44,8 @@
   "scripts": {
     "prod": "cross-env NODE_ENV=prod && webpack",
     "dev": "cross-env NODE_ENV=dev && webpack",
-    "test": "node node_modules/karma/bin/karma start"
+    "test": "node node_modules/karma/bin/karma start",
+    "lint": "./node_modules/.bin/eslint **/*.js"
   },
   "author": "Kirill Reznikov",
   "license": "ISC"

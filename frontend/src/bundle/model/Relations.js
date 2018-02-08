@@ -1,14 +1,16 @@
-function Relations(data) {
-    this.data = data;
+class Relations {
+    constructor(data) {
+        this._private.data = data;
+    }
+
+    getAllTypeValues(type) {
+        return Object.keys(this._private.data.relations[type] || {});
+    }
+
+    getRelatedLocations(type, value) {
+        const locationIds = this._private.data.relations[type][value];
+        return locationIds.map(id => this._private.data.locations[id]);
+    }
 }
-
-Relations.prototype.getAllTypeValues = function (type) {
-    return Object.keys(this.data.relations[type] || {});
-};
-
-Relations.prototype.getRelatedLocations = function (type, value) {
-    const locationIds = this.data.relations[type][value];
-    return locationIds.map(id=> this.data.locations[id]);
-};
 
 module.exports = Relations;

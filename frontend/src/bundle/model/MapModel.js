@@ -51,7 +51,6 @@ class MapModel {
             styles: disablePoiStyle
         });
 
-
         this._private = {
             gmapAPI: gmapAPI,
             directionsDisplay: null,
@@ -187,7 +186,7 @@ class MapModel {
             self.trip = getRouteInfo(data.routes[0]);
             return self.trip;
         });
-    };
+    }
 }
 
 function requestRouteData(gmapAPI, waypoints) {

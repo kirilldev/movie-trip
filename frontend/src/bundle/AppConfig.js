@@ -5,9 +5,9 @@ module.exports = function ($provide, $logProvider, $locationProvider) {
         'ngInject';
 
         return function (exception, cause) {
-            //TODO: send error to a server and maybe to show a user and error
+            //TODO: send error to a server and maybe show it to a user
             $delegate(exception, cause);
-        }
+        };
     });
 
     $logProvider.debugEnabled(true); //TODO: disable it in prod.

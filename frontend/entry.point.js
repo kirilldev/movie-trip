@@ -13,8 +13,7 @@ movieTripApp.config(require('./src/bundle/AppConfig.js'));
 //Constants
 movieTripApp.constant('mapModel', require('./src/bundle/model/MapModel'));
 movieTripApp.constant('relationsModel', require('./src/bundle/model/Relations'));
-movieTripApp.constant('apiFields', require('../common/enum').API_FIELDS);
-movieTripApp.factory('gmapAPI', () => window.google.maps);
+movieTripApp.constant('apiFields', require('common/const/enum').API_FIELDS);
 
 //Components
 movieTripApp.component('filterState', require('./src/bundle/component/filter-state'));
@@ -24,6 +23,7 @@ movieTripApp.component('typeahead', require('./src/bundle/component/typeahead'))
 movieTripApp.component('root', require('./src/bundle/component/root'));
 
 //Services
+movieTripApp.service('gmapAPI', () => window.google.maps);
 movieTripApp.service('locationsService', require('./src/bundle/service/LocationsService'));
 
 //Run

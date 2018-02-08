@@ -1,29 +1,21 @@
+/*eslint-env node*/
 'use strict';
 
-const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const precss = require('precss');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-// const WebpackOnBuildPlugin = require('on-build-webpack');
-// const precss = require('precss');
-//
-const PROJECT_PATH = path.resolve(__dirname, '../');
-const DIST_DIR = path.resolve(PROJECT_PATH, './dist');
-const NODE_ENV = (process.env.NODE_ENV || 'dev').trim().toLowerCase();
 
+const DIST_DIR = path.resolve(__dirname, './dist');
+const NODE_ENV = (process.env.NODE_ENV || 'dev').trim().toLowerCase();
 
 const copyPluginPaths = [
     {
         from: 'node_modules/angular/angular.js',
         to: 'assets/angular.js'
     },
-    // {
-    //     from: 'fonts/open-sans-condensed.woff.gz',
-    //     to: 'assets/open-sans-condensed.woff.gz'
-    // },
 ];
 
 const ENV_DATA = {
@@ -41,9 +33,9 @@ const ENV_DATA = {
 
 
 if (!ENV_DATA[NODE_ENV]) {
-    throw new Error("Unknown NODE_ENV '" + NODE_ENV + '\'');
+    throw new Error('Unknown NODE_ENV \'' + NODE_ENV + '\'');
 } else {
-    console.log('***** NODE_ENV=' + NODE_ENV + ' *****')
+    console.log('***** NODE_ENV=' + NODE_ENV + ' *****'); // eslint-disable-line no-console
 }
 
 const extractCSS = new ExtractTextPlugin({allChunks: true, filename: 'assets/bundle.css'});
@@ -51,12 +43,8 @@ const extractHTML = new ExtractTextPlugin({filename: ENV_DATA[NODE_ENV].indexHTM
 
 const plugins = [
     new webpack.optimize.ModuleConcatenationPlugin(),
-    // new webpack.DefinePlugin({
-    //     PROPS: JSON.stringify(require('./js/props/'
-    //         + (NODE_ENV === 'dev' ? 'dev.js' : 'prod.js')))
-    // }),
     new CleanWebpackPlugin(['dist'], {
-        root: PROJECT_PATH,
+        root: __dirname,
         verbose: true,
     }),
     new webpack.NoErrorsPlugin(),
@@ -102,9 +90,9 @@ const rules = [
         test: /\.css|\.scss/,
         use: extractCSS.extract({
             use: [
-                "css-loader",
+                'css-loader',
                 {
-                    loader: "postcss-loader",
+                    loader: 'postcss-loader',
                     options: {
                         plugins: () => [require('postcss-icss-values'), precss]
                     }
