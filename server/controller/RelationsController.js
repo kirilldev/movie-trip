@@ -1,9 +1,18 @@
-const parse = require('csv-parse/lib/sync');
 const fs = require('fs');
+const apiFields = require('common/const/enum.js').API_FIELDS;
+const parse = require('csv-parse/lib/sync');
+const Relations = require('../model/Relations');
 
 const RelationsController = {};
 
 RelationsController.getAllLocationRelations = (req, res) => {
+    //TODO: handle db response and remove and remove mocked one
+    Relations.getAll(req.params.locationName);
+    sendMockedResponse(res);
+};
+
+//TODO: remove that functions once db call is implemented
+function sendMockedResponse(res) {
     fs.readFile('./db/Film_Locations_in_San_Francisco.csv', 'utf8', function (err, contents) {
         if (err) {
             throw err;
@@ -18,10 +27,9 @@ RelationsController.getAllLocationRelations = (req, res) => {
 
         res.json(mapLocations(data));
     });
-};
+}
 
 function mapLocations(rows) {
-    const apiFields = require('common/const/enum.js').API_FIELDS;
     const collumn = {
         [apiFields.title]: 0,
         //releaseYear: 1,

@@ -23,16 +23,14 @@ const disablePoiStyle = [
     }
 ];
 
-/**
- *
- * @param gmapAPI
- * @param element
- * @param center
- * @param onMarkerClicked
- * @constructor
- */
+//TODO: Consider splitting that class to more entities.
+//Maybe directions related stuff is a good candidate?
 
-//TODO: Change to ES6 class
+/**
+ * It responsible for all manipulations with
+ * google maps API and map rendering.
+ * contains state of rendered map.
+ */
 class MapModel {
 
     constructor(gmapAPI, element, center, onMarkerClicked) {

@@ -1,6 +1,8 @@
 class Relations {
     constructor(data) {
-        this._private.data = data;
+        this._private = {
+            data: data
+        }
     }
 
     getAllTypeValues(type) {
