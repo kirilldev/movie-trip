@@ -15,6 +15,7 @@ const logger = log4js.getLogger('Main.js');
 const Place = require('./api/Place');
 const PORT = process.env.PORT || 8090;
 const IP = SERVER_ENV === 'dev' ? 'localhost' : '0.0.0.0';
+const frontendDist = 'node_modules/frontend/dist';
 
 // TODO: Improve logging, I just added a library..
 // For example. Write error logs to a separate file,
@@ -30,8 +31,8 @@ logger.info(`Going to start server with SERVER_ENV '${SERVER_ENV}'`);
 app.disable('x-powered-by');
 
 // register static routes
-app.use('/', express.static(path.join(__dirname, '../dist'), {index: 'index.html'}));
-app.use('assets', express.static(path.join(__dirname, '../dist/assets')));
+app.use('/', express.static(frontendDist, {index: 'index.html'}));
+app.use('assets', express.static(path.join(frontendDist, 'assets')));
 
 // register apis
 app.get('/health', (req, res) => res.status(200).send('OK'));
@@ -61,7 +62,7 @@ app.get('/api/relations/:locationName?', (req, res) => {
 });
 
 function mapLocations(rows) {
-    const apiFields = require('../common/enum.js').API_FIELDS;
+    const apiFields = require('common/const/enum.js').API_FIELDS;
     const collumn = {
         [apiFields.title]: 0,
         //releaseYear: 1,
