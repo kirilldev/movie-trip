@@ -18,15 +18,16 @@ with a friend or send it to your email address.**
 
 After I got that challenge,
 I tried to estimate an amount of time which I could dedicate to that project.
-I found out that I couldn't spend more than 14 hours during those 7 days.
+I found out that I couldn't spend more than 14 hours during those 7 days on implementation.
 So as it is not a lot of time to learn something completely new
-I decided to use a stack with which I had a bigger amount of experience
+I decided to use a stack with which I had more experience
 so I had higher probability to complete a project in time.
 
 **Google Maps API** - I have never tried to use Map APIs before.
 I chose google maps because it has good documentation and
 it is the most popular maps in the world I think
-(which means that they should be more familiar to the end user)
+(which means that they should be more familiar to the end user 
+and have a lot of good thirdparty plugins)
 
 **AngularJS** - I needed some framework to write my own components.
 I was thinking between AngularJS and React. If I had slightly more
@@ -47,10 +48,10 @@ write micro service using a language which is suitable for that.
 #### Trade-offs
 Look for **TODO**s in the source code, it contains some ideas what may be improved.
 
-I would like to use facebook flow to annotate object interfaces. But strip
-plugin didn't work and I decided to not spend a lot of time for it.
+I would like to use facebook's flow to annotate object interfaces. But strip
+plugin didn't work and I decided to not spend a lot of time on it.
 
-I don't like that in a project not all files go through webpack requires
+I don't like that in a project not all files go through webpack ``require``
 Mostly it was caused by the lack of time and thrird party code.
 
 I see some warnings in console from babel which also could be fixed.
@@ -67,15 +68,17 @@ I think that I can separate more thing from root component to a separate control
 
 I would write more useful tests. Especially system tests https://pbs.twimg.com/media/Cp9ecmOWcAAYu7F.jpg..
 
-I decided that at current moment as we don't need to store
-any info on our service we can live without a **DB**.
+I would write much better backend.
 
 Also I didn't think seriously about the case when we will
 have much more movies and locations on a map.
 But is should be relatively easy to add it to the existing project.
 
 I could start with yeoman generated project but usually,
-it contains much more things then needed for small scale project.
+it contains much more things than needed for small scale project.
+
+I spent big chunk of time on that project and code is not a perfect. 
+I see a lot of room for improvement..
 
 #### How to run locally
 1. Run ``npm i``
