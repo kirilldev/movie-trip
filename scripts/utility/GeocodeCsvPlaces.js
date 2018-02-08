@@ -5,6 +5,7 @@ const csv = require(path.resolve(__dirname, '../server/node_modules', 'csv'));
 const parse = require(path.resolve(__dirname, '../server/node_modules', 'csv-parse/lib/sync'));
 const GeocodePlacesService = require('../server/service/GeocodePlacesService.js');
 
+//TODO: That should come from run params
 const csvFilePath = '../../server/db/Film_Locations_in_San_Francisco.csv';
 const outFilePath = './GeocodedData.json';
 const area = 'San Francisco';

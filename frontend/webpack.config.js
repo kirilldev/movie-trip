@@ -23,19 +23,16 @@ const copyPluginPaths = [
     },
 ];
 
-const ENV_DATA = {
-    'prod': {
-        targetDir: DIST_DIR,
-        indexHTMLDir: 'index.html',
-        copyPluginPaths: copyPluginPaths
-    },
-    'dev': {
-        targetDir: DIST_DIR,
-        indexHTMLDir: 'index.html',
-        copyPluginPaths: copyPluginPaths
-    }
+const commonEnvData = {
+    targetDir: DIST_DIR,
+    indexHTMLDir: 'index.html',
+    copyPluginPaths: copyPluginPaths
 };
 
+const ENV_DATA = {
+    'prod': Object.assign({}, commonEnvData),
+    'dev': Object.assign({}, commonEnvData)
+};
 
 if (!ENV_DATA[NODE_ENV]) {
     throw new Error('Unknown NODE_ENV \'' + NODE_ENV + '\'');
@@ -63,7 +60,7 @@ if (NODE_ENV !== 'dev') {
         minimize: true
     }));
 }
-//
+
 const rules = [
     {
         test: /index\.html$/,
@@ -125,17 +122,6 @@ const rules = [
     }
 ];
 
-// {
-//     test: /\.(woff|mp3)$/,
-//         use: [{
-//     loader: 'file-loader',
-//     options: {
-//         name: '/assets/[name].[ext]'
-//     }
-// }]
-// },
-// ];
-
 module.exports = {
     entry: './entry.point.js',
 
@@ -172,6 +158,6 @@ module.exports = {
 
     devServer: {
         host: 'localhost',
-        port: 8080
+        port: 8090
     }
 };

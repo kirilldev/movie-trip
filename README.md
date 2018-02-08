@@ -39,8 +39,7 @@ I chose boring tech to avoid surprises during implementation.
 
 **Node.js + Express.js** - Node.js allows us
 to reuse some code on a client and a server and it is extremely easy
-to find a hosting for it. Also it fits out needs
-(mostly to serve static resources).
+to find a hosting for it. Also it fits out needs (no heavy computation here).
 It minimizes amount of languages in a project.
 If we need some heavy computations or smth else we will
 write micro service using a language which is suitable for that.
@@ -48,9 +47,39 @@ write micro service using a language which is suitable for that.
 #### Trade-offs
 Look for **TODO**s in the source code, it contains some ideas what may be improved.
 
+I would like to use facebook flow to annotate object interfaces. But strip
+plugin didn't work and I decided to not spend a lot of time for it.
+
+I don't like that in a project not all files go through webpack requires
+Mostly it was caused by the lack of time and thrird party code.
+
+I see some warnings in console from babel which also could be fixed.
+
+In a real project I will pay a lot of attention to resource cache policy
+
+Also I would use local fonts instead of Google Fonts.
+
+Of course I would use nsp to check for vulnerabilities in libs.
+
+I will use svg icons instead of images for icons..
+
+I think that I can separate more thing from root component to a separate controllers
+
+I would write more useful tests. Especially system tests https://pbs.twimg.com/media/Cp9ecmOWcAAYu7F.jpg..
+
 I decided that at current moment as we don't need to store
 any info on our service we can live without a **DB**.
 
 Also I didn't think seriously about the case when we will
 have much more movies and locations on a map.
 But is should be relatively easy to add it to the existing project.
+
+I could start with yeoman generated project but usually,
+it contains much more things then needed for small scale project.
+
+#### How to run locally
+1. Run ``npm i``
+2. In a server module run ``npm run dev``
+3. Open ``localhost:8090`` in your browser
+
+P.S. ``run npm dev`` in frontend module to watch files
