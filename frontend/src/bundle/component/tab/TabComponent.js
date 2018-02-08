@@ -1,6 +1,4 @@
-const template = require('!raw-loader!./TabComponent.html');
-
-require('./TabComponent.css');
+const template = require('./TabComponent.tpl.html');
 
 //TODO: https://toddmotto.com/angular-1-5-lifecycle-hooks
 module.exports = {

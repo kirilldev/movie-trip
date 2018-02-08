@@ -1,10 +1,7 @@
-const template = require('!raw-loader!./FilterStateComponent.html');
-
-require('./FilterStateComponent.css');
+const template = require('./FilterStateComponent.tpl.html');
 
 module.exports = {
     template: template,
-    transclude: true,
     bindings: {
         filterData: '<',
         onRemove: '='

@@ -1,10 +1,7 @@
-const template = require('!raw-loader!./FilterConfiguratorComponent.html');
-
-require('./FilterConfiguratorComponent.css');
+const template = require('./FilterConfiguratorComponent.tpl.html');
 
 module.exports = {
     template: template,
-    transclude: true,
     bindings: {
         filterTypes: '<',
         filterData: '<',

@@ -13,14 +13,15 @@ movieTripApp.config(require('./src/bundle/AppConfig.js'));
 //Constants
 movieTripApp.constant('mapModel', require('./src/bundle/model/MapModel'));
 movieTripApp.constant('relationsModel', require('./src/bundle/model/Relations'));
-movieTripApp.constant('apiFields',require('../common/enum').API_FIELDS);
+movieTripApp.constant('apiFields', require('../common/enum').API_FIELDS);
+movieTripApp.factory('gmapAPI', () => window.google.maps);
 
 //Components
-movieTripApp.component('filterState', require('./src/bundle/component/filter-state/FilterStateComponent'));
-movieTripApp.component('filterConfigurator', require('./src/bundle/component/filter-configurator/FilterConfiguratorComponent'));
-movieTripApp.component('tab', require('./src/bundle/component/tab/TabComponent'));
-movieTripApp.component('typeahead', require('./src/bundle/component/typeahead/TypeaheadComponent'));
-movieTripApp.component('root', require('./src/bundle/component/root/RootComponent'));
+movieTripApp.component('filterState', require('./src/bundle/component/filter-state'));
+movieTripApp.component('filterConfigurator', require('./src/bundle/component/filter-configurator'));
+movieTripApp.component('tab', require('./src/bundle/component/tab'));
+movieTripApp.component('typeahead', require('./src/bundle/component/typeahead'));
+movieTripApp.component('root', require('./src/bundle/component/root'));
 
 //Services
 movieTripApp.service('locationsService', require('./src/bundle/service/LocationsService'));

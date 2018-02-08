@@ -1,6 +1,4 @@
-const template = require('!raw-loader!./TypeaheadComponent.html');
-
-require('./TypeaheadComponent.scss');
+const template = require('./TypeaheadComponent.tpl.html');
 
 // TODO: improve UX, highlight match in a list.
 // TODO: add possibility to chose first entry in a list with a tab key.

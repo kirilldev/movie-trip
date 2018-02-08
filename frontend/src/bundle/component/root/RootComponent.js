@@ -1,13 +1,11 @@
-const template = require('!raw-loader!./RootComponent.html');
+const template = require('./RootComponent.tpl.html');
 const tripIcon = require('img/icon/icon-trip.png');
 const filterIcon = require('img/icon/icon-filter.png');
-
-require('./RootComponent.scss');
 
 module.exports = {
     template: template,
     bindings: {},
-    controller: function (locationsService, mapModel, $scope, apiFields) {
+    controller: function (locationsService, mapModel, $scope, apiFields, gmapAPI) {
         'ngInject';
 
         const self = this;
@@ -87,16 +85,14 @@ module.exports = {
             return filterData;
         }
 
-        window.googleMapsAPILoader.listen(gmapAPI => {
-            self.map = new mapModel(gmapAPI,
-                document.getElementById('map'),
-                sanFranciscoLatLng,
-                handleMarkerClick);
+        self.map = new mapModel(gmapAPI,
+            document.getElementById('map'),
+            sanFranciscoLatLng,
+            handleMarkerClick);
 
-            locationsService.getHeatMapData().then(points => {
-                locationPoints = points;
-                self.map.setMarkers(points);
-            });
+        locationsService.getHeatMapData().then(points => {
+            locationPoints = points;
+            self.map.setMarkers(points);
         });
 
         function handleMarkerClick(marker) {

@@ -121,6 +121,12 @@ const rules = [
                 limit: '4096'
             }
         }]
+    },
+    {
+        test: /\.tpl\.html$/,
+        use: [{
+            loader: 'raw-loader'
+        }]
     }
 ];
 
@@ -146,7 +152,7 @@ module.exports = {
     resolve: {
         extensions: ['.js'],
         alias: {
-            img: path.resolve(__dirname, 'img'),
+            img: path.resolve(__dirname, 'assets/img'),
             css: path.resolve(__dirname, 'css'),
         }
     },
