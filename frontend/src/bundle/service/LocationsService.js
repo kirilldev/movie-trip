@@ -19,6 +19,6 @@ module.exports = function ($http, $q, relationsModel) {
     };
 
     this.getHeatMapData = function () {
-        return $http.get('/api/heatmap').then(res => res.data);
+        return $http.get('/api/markers/').then(res => res.data);
     };
 };

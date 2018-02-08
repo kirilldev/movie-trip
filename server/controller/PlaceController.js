@@ -1,5 +1,9 @@
 const Place = {};
 
+/**
+ * @param req
+ * @param res
+ */
 Place.getPlaceDataByName = function (req, res) {
     // TODO: return all interesting data related to a location
     // That api is needed for thing not implemented yet on UI
@@ -7,7 +11,7 @@ Place.getPlaceDataByName = function (req, res) {
     // see fun facts movies actors and photos of that location
     // in a modal window. Currently I just
     // add/remove location from user list on that action.
-    res.send('TODO')
+    res.send('TODO');
 };
 
 module.exports = Place;

@@ -1,11 +1,16 @@
 module.exports = {
     'env': {
-        'browser': true,
         'commonjs': true,
         'es6': true
     },
     'extends': 'eslint:recommended',
     'rules': {
+        'max-len': [
+            'error',
+            {
+                'code': 100
+            }
+        ],
         'indent': [
             'error',
             4

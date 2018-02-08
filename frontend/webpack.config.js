@@ -7,6 +7,7 @@ const precss = require('precss');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const BabelPluginNgAnnotate = require('babel-plugin-angularjs-annotate');
 
 const DIST_DIR = path.resolve(__dirname, './dist');
 const NODE_ENV = (process.env.NODE_ENV || 'dev').trim().toLowerCase();
@@ -15,6 +16,10 @@ const copyPluginPaths = [
     {
         from: 'node_modules/angular/angular.js',
         to: 'assets/angular.js'
+    },
+    {
+        from: 'assets/img/marker/*.png',
+        to: ''
     },
 ];
 
@@ -80,7 +85,9 @@ const rules = [
                 loader: 'babel-loader',
                 query: {
                     presets: [require.resolve('babel-preset-es2015')],
-                    plugins: [[require.resolve('babel-plugin-angularjs-annotate'), {'explicitOnly': true}]]
+                    plugins: [
+                        [BabelPluginNgAnnotate, {'explicitOnly': true}]
+                    ]
                 }
             }
         ]

@@ -4,7 +4,7 @@
   "description": "https://movie-trip.herokuapp.com/",
   "main": "index.js",
   "scripts": {
-    "checks": "./node_modules/.bin/eslint **/*.js",
+    "lint": "cd frontend && npm run lint && cd.. & cd server && npm run lint",
     "postinstall": "cd frontend && npm install && cd.. & cd server && npm install"
   },
   "repository": {

@@ -1,4 +1,5 @@
 //TODO: find a way to import in a variable instead of window
+//Update to marker cluster plus.
 require('js-marker-clusterer'); // window.MarkerClusterer
 
 const MarkerWithLabel = require('markerwithlabel');
@@ -6,8 +7,7 @@ const markerDefaultImage = require('img/icon/marker-default.png');
 const markerSelectedImage = require('img/icon/marker-selected.png');
 
 const markerClusterOptions = {
-    //TODO: host own pictures
-    imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+    imagePath: '/assets/img/marker/m'
 };
 
 //removes all places from a google map

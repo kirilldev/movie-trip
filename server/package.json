@@ -5,6 +5,7 @@
   "main": "Main.js",
   "scripts": {
     "dev": "node Main.js dev",
+    "lint": "./node_modules/.bin/eslint **/*.js",
     "check": "nsp check"
   },
   "author": "Kirill Reznikov",
@@ -17,5 +18,8 @@
     "log4js": "^2.5.2",
     "csv": "^2.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint-config-custom": "file:../eslint-config-custom",
+    "eslint": "^4.17.0"
+  }
 }

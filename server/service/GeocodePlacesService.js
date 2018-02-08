@@ -23,12 +23,12 @@ module.exports = {
                     country: 'US',
                     administrativeArea: aria,
                 },
-                'language': 'en',
+                language: 'en',
             };
 
             gmAPI.geocode(geocodeParams, function (err, result) {
                 if (err) {
-                   throw err;
+                    throw err;
                 }
 
                 const geometry = ((result.results || [])[0] || {}).geometry;

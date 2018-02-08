@@ -28,7 +28,7 @@ describe('TypeaheadComponent.js', function () {
         scope.$apply();
     }));
 
-    it('must not display a dropdown on init', function () {
+    it('must not display a dropdown on init', () => {
         //given
         scope.datasource = testDatasource;
 
@@ -40,7 +40,7 @@ describe('TypeaheadComponent.js', function () {
         expect(resultsEl.length).toEqual(0);
     });
 
-    it('must show a dropdown on a focus', function () {
+    it('must show a dropdown on a focus', () => {
         //given
         scope.datasource = testDatasource;
 
@@ -52,7 +52,7 @@ describe('TypeaheadComponent.js', function () {
         expect(resultsEl.length).toEqual(1);
     });
 
-    it('must show 5 dropdown values sorted in asc order by default', function () {
+    it('must show 5 dropdown values sorted in asc order by default', () => {
         //given
         scope.datasource = testDatasource;
         const expectedDropdownValues = ['Eight', 'Five', 'Four', 'Nine', 'One'];
@@ -64,7 +64,7 @@ describe('TypeaheadComponent.js', function () {
         expect(getDropdownValues(element)).toEqual(expectedDropdownValues);
     });
 
-    it('must limit amount of results in a dropdown if parameter was passed', function () {
+    it('must limit amount of results in a dropdown if parameter was passed', () => {
         //given
         scope.datasource = testDatasource;
         scope.limitList = 2;
@@ -77,7 +77,7 @@ describe('TypeaheadComponent.js', function () {
         expect(getDropdownValues(element)).toEqual(expectedDropdownValues);
     });
 
-    it('must filter results in in a dropdown according to the input', function () {
+    it('must filter results in in a dropdown according to the input', () => {
         //given
         scope.datasource = testDatasource;
         const expectedDropdownValues = ['One', 'Onee'];
@@ -92,7 +92,7 @@ describe('TypeaheadComponent.js', function () {
         expect(getDropdownValues(element)).toEqual(expectedDropdownValues);
     });
 
-    it('must not preserve input value on blur if entered value is not present in a datasource', function () {
+    it('must not preserve input value on blur if it is not present in a datasource', () => {
         //given
         scope.datasource = testDatasource;
         const expectedInputValue = '';
@@ -109,7 +109,7 @@ describe('TypeaheadComponent.js', function () {
         expect(input.val()).toEqual(expectedInputValue);
     });
 
-    it('must preserve input value on blur if entered value is present in a datasource', function () {
+    it('must preserve input value on blur if entered value is present in a datasource', () => {
         //given
         scope.datasource = testDatasource;
         const expectedInputValue = 'One';
@@ -125,7 +125,7 @@ describe('TypeaheadComponent.js', function () {
         expect(input.val()).toEqual(expectedInputValue);
     });
 
-    it('must ignore case while searching in datasource array', function () {
+    it('must ignore case while searching in datasource array', () => {
         //given
         scope.datasource = testDatasource;
         const expectedDropdownValues = ['One', 'Onee'];
@@ -140,7 +140,7 @@ describe('TypeaheadComponent.js', function () {
         expect(getDropdownValues(element)).toEqual(expectedDropdownValues);
     });
 
-    it('must fill input when user clicks on item in dropdown list', function () {
+    it('must fill input when user clicks on item in dropdown list', () => {
         //given
         scope.datasource = testDatasource;
         const expectedValue = 'Five';
