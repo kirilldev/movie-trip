@@ -70,6 +70,15 @@ I would write more useful tests. Especially system tests https://pbs.twimg.com/m
 
 I would write much better backend.
 
+I would control point boundaries after geocoding.
+Currently you can see that some markers placed outside SF location
+and some point with different name has the same location.
+And that leads to some sort of bug.
+
+Also that google map third party libraries need some optimizations\fixes.
+You can see situation when a lot of labels on a scree but clusters
+still not formed..
+
 Also I didn't think seriously about the case when we will
 have much more movies and locations on a map.
 But is should be relatively easy to add it to the existing project.
