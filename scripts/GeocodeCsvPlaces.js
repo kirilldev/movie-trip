@@ -1,3 +1,10 @@
+//TODO: Make scripts folder as a separate module..
+
+/**
+ * That script takes location names from given dataset and fetches
+ * latitude and longitude using google maps api.
+ */
+
 const path = require('path');
 const fs = require('fs');
 
@@ -12,7 +19,8 @@ const area = 'San Francisco';
 
 fs.readFile(csvFilePath, 'utf8', function (err, contents) {
     const [/*header*/, ...rows] = parse(contents);
-    const places = Array.from(new Set(rows.map(e => e[2])));
+    const locationColumn = 2;
+    const places = Array.from(new Set(rows.map(row => row[locationColumn])));
     const placeNameToCoordinate = {};
 
     function writeToAFile() {

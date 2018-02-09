@@ -6,6 +6,7 @@ const MarkerWithLabel = require('markerwithlabel');
 const markerDefaultImage = require('img/icon/marker-default.png');
 const markerSelectedImage = require('img/icon/marker-selected.png');
 
+//It is ugly, but marker cluster forces me to do it..
 const markerClusterOptions = {
     imagePath: '/assets/img/marker/m'
 };
@@ -71,6 +72,14 @@ class MapModel {
         this._private.map.setZoom(this._initialView.zoom);
     }
 
+    /**
+     *
+     * @param points Object with has the next format
+     *  {
+     *      'Point name' : {lat: 11, lng: 11}
+     *      ...
+     *  }
+     */
     setMarkers(points) {
         const markers = [];
 
@@ -156,13 +165,14 @@ class MapModel {
         }
     }
 
+    ///TODO:
     // The maximum number of waypoints allowed when using the
     // Directions service in the Google Maps JavaScript API is 23, plus the origin and destination.
     // https://developers.google.com/maps/documentation/javascript/directions#GeocodedWaypoints
     calculateAndDisplayRoute() {
         const self = this;
 
-        this.removeRouteFromMap(true);
+        self.removeRouteFromMap(true);
 
         const waypoints = self.selectedPlaces.map(marker => {
             return {

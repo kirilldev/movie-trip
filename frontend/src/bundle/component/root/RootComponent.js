@@ -2,6 +2,9 @@ const template = require('./RootComponent.tpl.html');
 const tripIcon = require('img/icon/icon-trip.png');
 const filterIcon = require('img/icon/icon-filter.png');
 
+/**
+ * Application root component
+ */
 module.exports = {
     template: template,
     bindings: {},
@@ -38,6 +41,11 @@ module.exports = {
 
         self.filterData = createEmptyFilterData(self.filterTypes);
 
+        self.map = new mapModel(gmapAPI,
+            document.getElementById('map'),
+            sanFranciscoLatLng,
+            handleMarkerClick);
+
         self.removeSelectedPlace = function (place) {
             self.map.deselectPlace(place);
             self.map.calculateAndDisplayRoute().then(() => $scope.$apply());
@@ -62,6 +70,10 @@ module.exports = {
             locationsService.getRelations().then(updateMap);
         };
 
+        locationsService.getLocationMarkers().then(points => {
+            self.map.setMarkers(points);
+        });
+
         function updateMap(relations) {
             const [isAllVisible, visibleNames] = getVisibleNames(self.filterData, relations);
             self.map.updateMarkersVisibility(m => isAllVisible || visibleNames[m.labelContent]);
@@ -83,15 +95,7 @@ module.exports = {
             return filterData;
         }
 
-        self.map = new mapModel(gmapAPI,
-            document.getElementById('map'),
-            sanFranciscoLatLng,
-            handleMarkerClick);
-
-        locationsService.getHeatMapData().then(points => {
-            self.map.setMarkers(points);
-        });
-
+        //TODO: It had to show more complex modal but not enough time for that
         function handleMarkerClick(marker) {
             const isSelected = self.map.isSelectedPlace(marker);
             let questionTxt = '';
@@ -111,8 +115,17 @@ module.exports = {
             }
         }
 
+        /**
+         * Determines which marker names should be visible on a map
+         *
+         * @param filterSetup current user filter state
+         * @param relations relationsModel object.
+         * @returns First parameter true if all visible.
+         *          Otherwise contains object as a second
+         *          parameter with visible marker names on a map
+         */
         function getVisibleNames(filterSetup, relations) {
-            const filterKeys = getNotEmptyKeys(filterSetup);
+            const filterKeys = getKeysWithNotEmptyValues(filterSetup);
             const out = {};
 
             if (!filterKeys.length) {
@@ -129,7 +142,7 @@ module.exports = {
             return [false, out];
         }
 
-        function getNotEmptyKeys(filterSetup) {
+        function getKeysWithNotEmptyValues(filterSetup) {
             return Object.keys(filterSetup)
                 .filter(key => (filterSetup[key].values || []).length);
         }

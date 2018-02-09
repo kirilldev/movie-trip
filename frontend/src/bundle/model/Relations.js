@@ -1,3 +1,8 @@
+/**
+ * Model represents relations between such entries as
+ * locations to movie name, locations to actor name e.t.c.
+ * Wraps optimized server data structure (needed to reduce bandwidth).
+ */
 class Relations {
     constructor(data) {
         this._private = {

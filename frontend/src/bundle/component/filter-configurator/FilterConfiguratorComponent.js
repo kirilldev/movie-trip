@@ -1,5 +1,8 @@
 const template = require('./FilterConfiguratorComponent.tpl.html');
 
+/**
+ * Represents filter selection view
+ */
 module.exports = {
     template: template,
     bindings: {

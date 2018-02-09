@@ -18,7 +18,7 @@ module.exports = function ($http, $q, relationsModel) {
         });
     };
 
-    this.getHeatMapData = function () {
+    this.getLocationMarkers = function () {
         return $http.get('/api/markers/').then(res => res.data);
     };
 };

@@ -1,5 +1,8 @@
 const template = require('./FilterStateComponent.tpl.html');
 
+/**
+ * Displays all applied filter to the map
+ */
 module.exports = {
     template: template,
     bindings: {
