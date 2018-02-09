@@ -171,6 +171,7 @@ class MapModel {
     // https://developers.google.com/maps/documentation/javascript/directions#GeocodedWaypoints
     calculateAndDisplayRoute() {
         const self = this;
+        const minPossibleAmountOfPointsForPath = 2;
 
         self.removeRouteFromMap(true);
 
@@ -184,7 +185,7 @@ class MapModel {
             };
         });
 
-        if (waypoints.length < 2) {
+        if (waypoints.length < minPossibleAmountOfPointsForPath) {
             return Promise.resolve(self.trip);
         }
 
